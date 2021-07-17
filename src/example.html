@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sistema de Gerenciamento de TCC - Exemplo</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="styles/global.css">
+    </head>
+    <body>
+        <div class="app-bar elevated2">
+            <img id="logo" src="../img/ufrrj.jpg" alt="UFRRJ">
+            <span class="app-name"><strong>SISTEMA DE</strong><br> GERENCIAMENTO DE TCC</span>
+        </div>
+        <div class="main elevated1">
+            <h1>Título da Página</h1>
+            <p class="paragraph1 low-emph">
+                Texto explicativo sobre o conteúdo da página, ações possíveis e esperadas do usuário.
+            </p>
+            <hr>
+            <fieldset>
+                <label for="input">Label</label>
+                <input type="text" name="input" id="input" placeholder="Digite sua input">
+            </fieldset>
+
+            <div class="side-by-side-fields">
+                <fieldset class="half">
+                    <label for="esq">Lado Esquerdo</label>
+                    <input type="text" name="esq" id="esq" placeholder="Lado Esquerdo">
+                </fieldset>
+
+                <fieldset class="half">
+                    <label for="dir">Lado Direito</label>
+                    <input type="text" name="dir" id="dir" placeholder="Lado Direito">
+                </fieldset>
+            </div>
+
+            <fieldset>
+                <label for="area">Texto Longo</label>
+                <textarea name="area" id="area" placeholder="Digite aqui seu texto longo"></textarea>
+            </fieldset>
+
+            <button class="raised">Elevado</button>
+            <button class="outlined">Contornado</button>
+            <button class="text">Texto</button>
+        </div>
+    </body>
+</html>
