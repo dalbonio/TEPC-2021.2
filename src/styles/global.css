@@ -1,47 +1,144 @@
+/* Color variables for reuse */
 :root {
     --primary-color: #0F3B8C;
     --secondary-color: #28A745;
+    --tertiary-color: #FFC107;
     --text-on-primary: #FFFFFF;
     --background: #E5E5E5;
     --surface: #FFFFFF;
     --text-on-surface: #000000;
     --text-low-emph: rgba(0, 0, 0, 0.75);
-    --line: rgba(0, 0, 0, 0.67)
+    --line: rgba(0, 0, 0, 0.67);
+    --msg-background: rgba(255, 193, 7, 0.68);
 }
 
+/* Smartphones */
+@media only screen and (min-width: 768px) {
+    .main {
+        width: 70%;
+        min-width: 768px;
+    }
+
+    nav {
+        width: 25%;
+    }
+
+    .app-bar .app-name {
+        font-size: 18pt;
+    }
+}
+
+/* Laptops and desktops */
+@media only screen and (max-width: 768px) {
+    .main {
+        width: 100%;
+        min-width: none;
+    }
+
+    nav {
+        width: 75%;
+    }
+
+    .app-bar .app-name {
+        font-size: 14pt;
+    }
+}
+
+/* Default font + remove maring and padding from all elements*/
 * {
     margin: 0;
     padding: 0;
     font-family: 'Open Sans', sans-serif;
 }
 
-.elevated2 {
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.50);
-    z-index: 2;
-}
-
+/* Element is elevated on first level and casts small shadow */
 .elevated1 {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     z-index: 1;
 }
 
-html,body {
-    width: 100%;
-    /*height: 100%;*/
+/* Element is elevated on level 2 and casts larger shadow */
+.elevated2 {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.50);
+    z-index: 2;
 }
 
+/* Title */
+h1 {
+    font-weight: bold;
+    font-size: 27pt;
+    color: var(--text-on-surface);
+    margin-bottom: 32px;
+}
+
+/* 2nd level title */
+h2 {
+    font-weight: bold;
+    font-size: 18pt;
+    line-height: 100%;
+    margin-bottom: 8px;
+}
+
+/* 3rd level title */
+h3 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13.5pt;
+    line-height: 18pt;
+    text-transform: uppercase;
+    margin-top: 32px;
+    margin-bottom: 8px;
+}
+
+/* Text main style */
+.paragraph1 {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13.5pt;
+    line-height: 100%;
+    text-align: justify;
+}
+
+/* Text secondary style */
+.paragraph2 {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10.5pt;
+    line-height: 13.50pt;
+    text-align: justify;
+    color: var(--text-low-emph);
+}
+
+/* Overline text, used when text is describing some more text directly below it */
+.overline {
+    font-weight: 600;
+    font-size: 10.5pt;
+    line-height: 100%;
+    color: var(--text-low-emph);
+    text-transform: uppercase;
+}
+
+/* Low emphasis text, good for secondary text that doesn't require the user's full atention */
+.low-emph {
+    color: var(--text-low-emph);
+}
+
+/* Use the 'paper' color for the background, to keep users focused on the content */
 body {
     background-color: var(--background);
 }
 
+/* App bar maintains consistency across devices and other apps */
 .app-bar {
     display: flex;
+    box-sizing: border-box;
     position: relative;
     width: 100%;
     height: 64px;
     background-color: var(--primary-color);
 }
 
+/* UFRRJ logo on left of app bar */
 .app-bar #logo {
     width: 48px;
     height: 48px;
@@ -50,63 +147,108 @@ body {
     border-radius: 8px;
 }
 
+/* Applications name directly adjacent to the logo */
 .app-bar .app-name {
-    margin-top: 8px;
+    margin: auto;
     margin-left: 16px;
     color: var(--text-on-primary);
-    font-size: 24px;
     line-height: 100%;
 }
 
+/* Hamburguer menu */
+.app-bar .menu {
+    display: inline-block;
+    color: var(--text-on-primary);
+    font-size: 48px;
+    line-height: 100%;
+    margin: auto;
+    margin-right: 32px;
+    text-decoration: none;
+}
+
+/* Navigation menu that opens on interaction with the hamburguer */
+nav {
+    display: block;
+    position: absolute;
+    top: 64px;
+    right: 0;
+    opacity: 0;
+    transform-origin: top;
+    transform: scaleY(0);
+    background-color: var(--primary-color);
+    float: right;
+    padding: 32px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Keep navigation menu open while there is focus on the hamburguer button */
+.app-bar .menu:focus + nav {
+    transform: scaleY(1);
+    opacity: 1;
+}
+
+/* Keep navigation menu open while there is a mouse over it */
+nav:hover {
+    transform: scaleY(1);
+    opacity: 1;
+}
+
+/* Remove the default link style and apply a more consistent one with a dropdown menu */
+nav * {
+    display: block;
+    color: var(--text-on-primary);
+    text-align: end;
+    font-size: 13.5pt;
+    line-height: 100%;
+}
+
+/* Hello message for the current user */
+nav .hello {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--text-on-primary);
+}
+
+/* Apply borders on the links, since there are links within "section" elements */
+nav a {
+    padding: 16px 0;
+    color: var(--text-on-primary);
+    border-bottom: 1px solid var(--text-on-primary);
+}
+
+/* Main block of content, this is where all of the content goes */
 .main {
+    box-sizing: border-box;
     background-color: var(--surface);
-    width: 70%;
-    min-width: 1000px;
     height: 100%;
     margin: auto;
     padding: 32px 16px;
 }
 
-h1 {
-    font-weight: bold;
-    font-size: 36px;
-    color: var(--text-on-surface);
-    margin-bottom: 32px;
-}
-
-.paragraph1 {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 100%;
-    text-align: justify;
-}
-
-.low-emph {
-    color: var(--text-low-emph);
-}
-
+/* Divider, not sure whether to keep this */
 hr {
     width: 100%;
     margin: 32px 0;
     color: var(--line);
 }
 
+/* Remove the default style for fieldsets */
 fieldset {
     border: none;
     margin-bottom: 8px;
 }
 
+/* Apply an almost material-like design to text fields */
 fieldset label {
     display: block;
     text-transform: uppercase;
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 13.5pt;
+    line-height: 18pt;
     color: var(--text-on-surface);
     margin-bottom: 8px;
 }
 
-fieldset input,textarea {
+/* Apply an almost material-like design to text fields */
+fieldset input,textarea,select {
     display: block;
     height: 48px;
     width: 100%;
@@ -114,33 +256,45 @@ fieldset input,textarea {
     border-radius: 4px;
     box-sizing: border-box;
     padding: 12px 16px;
-    font-size: 18px;
+    font-size: 13.5pt;
 }
 
+/* Use the material icons to get the dropdown arrow to be consistent with the rest of the application */
+fieldset select {
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 0 24 24' width='24' fill='black'><path d='M0 0h24v24H0z' fill='none'/><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right; /* material icons arrow-drop-down svg */
+    appearance: none;
+}
+
+/* This height seems to be good enough for a long text field */
 fieldset textarea {
     height: 224px;
 }
 
+/* Trick to be able to put fields side by side */
 .side-by-side-fields {
     display: flex;
     margin: 0 -8px;
 }
 
+/* One side of the side-by-side fields */
 fieldset.half {
     width: 50%;
     margin: 0 8px 8px 8px;
 }
 
+/* Button style that is repeated throughout buttons */
 button {
     border-radius: 4px;
     height: 48px;
     padding: 12px 8px;
-    font-size: 24px;
+    font-size: 18pt;
     line-height: 100%;
     font-weight: bold;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
+/* Elevated button, this button should be the primary action */
 button.raised {
     background-color: var(--secondary-color);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); /* elevated1 */
@@ -149,14 +303,178 @@ button.raised {
     color: var(--text-on-primary);
 }
 
+/* Outlined button, this button can be a primary action, but also a secondary action when there is already an elevated button present */
 button.outlined {
     background-color: transparent;
     border: 1px solid var(--secondary-color);
     color: var(--secondary-color);
 }
 
+/* Button with no border or background, this button should be a secondary action */
 button.text {
     background-color: transparent;
     border: none;
     color: var(--secondary-color);
+}
+
+/* Hack to style the file input */
+label.file-input { /* button */
+    border-radius: 4px;
+    height: 48px;
+    padding: 12px 8px;
+    font-size: 18pt;
+    line-height: 100%;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: transparent; /* button.outlined */
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+    display: inline-block; /* label.file-input */
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+/* Hack to style the file input */
+label.file-input + .file-name {
+    margin-left: 8px;
+}
+
+/* Hack to style the file input */
+input[type="file"] {
+    display: none;
+}
+
+/* Dialog that opens in the middle of the screen */
+dialog {
+    padding: 16px;
+    position: fixed;
+    /* top: 50%; */
+    margin: auto;
+    border: none;
+    width: 360px;
+}
+
+/* Dim the screen when a dialog is open */
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.50);
+}
+
+/* Position the buttons on the right of the dialog */
+/* Important to make the primary button the rightmost button in the dialog */
+dialog button {
+    float: right;
+    margin-right: 8px;
+    margin-top: 32px;
+}
+
+/* Box filled with the tertiary color to draw attention to a message */
+.message-box {
+    background-color: var(--msg-background);
+    padding: 12px 8px;
+    border-radius: 4px;
+    margin: 16px 0;
+}
+
+/* List block, keep some distance from other blocks */
+ul {
+    margin: 16px 0;
+}
+
+/* Remove default style for list items and position the action and description portions accordingly */
+ul li {
+    display: flex;
+    padding: 8px 24px;
+    border-top: 1px inset var(--line);
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Make the text portion of the list item stacked */
+ul li .description * {
+    display: block;
+    margin-top: 4px;
+}
+
+/* Most important text of the list item */
+ul li .description .title { /* paragraph1 */
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13.5pt;
+    line-height: 100%;
+    text-align: justify;
+}
+
+/* Secondary text of the list item */
+ul li .description .text { /* paragraph2 */
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10.5pt;
+    line-height: 13.5pt;
+    text-align: justify;
+    color: var(--text-low-emph);
+}
+
+/* Card element is outlined since there already are multiple shadows in the application */
+.card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background-color: var(--surface);
+    margin-top: 16px;
+    padding: 8px 16px;
+}
+
+/* Make the text elements in the card stack */
+.card span {
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Most important text of the card */
+.card .title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13.5pt;
+    line-height: 100%;
+    text-align: justify;
+}
+
+/* Secondary text of the card */
+.card span.text {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10.5pt;
+    line-height: 100%;
+    text-align: justify;
+}
+
+/* Action button, user can act on the card */
+.card .action {
+    align-self: flex-end;
+}
+
+/* List of pages and navigation buttons */
+.pagination {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Remove default link styles */
+.pagination a {
+    text-decoration: none;
+    color: var(--text-on-surface);
+    margin: 0 0.5em;
+}
+
+/* Highlight current page */
+.pagination .selected {
+    font-weight: bold;
+}
+
+/* Dim unavailable buttons, i.e. "First Page" and "Previous Page" when the current page is 1 */
+.pagination .unavailable {
+    opacity: 0.5;
 }
