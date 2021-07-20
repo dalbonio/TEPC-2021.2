@@ -23,3 +23,19 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async ({ view }) => {
   return view.render('welcome')
 })
+
+Route.get('/example', async ({ view }) => {
+  return view.render('example')
+})
+
+Route.get('/enviarTrabalho', async ({ view }) => {
+  return view.render('enviar_trabalho')
+})
+
+Route.get('/alterarTrabalho', async ({ view }) => {
+  return view.render('alterar_trabalho')
+})
+
+Route.get('/cadastrarProposta', async ({ view }) => {
+  return view.render('cadastrar_proposta')
+})
