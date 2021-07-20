@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sistema de Gerenciamento de TCC - Exemplo</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <link rel="stylesheet" href="global.css">
+    </head>
+    <body>
+        <header class="app-bar elevated2">
+            <img id="logo" src="img/ufrrj.jpg" alt="UFRRJ">
+            <span class="app-name"><strong>SISTEMA DE</strong><br> GERENCIAMENTO DE TCC</span>
+            <a href="#" class="material-icons menu">menu</a>
+            <nav class="elevated2">
+                <span class="hello">Olá, Fulano da Silva</span>
+                <a href="#">Sair</a>
+                <a href="#">Ver Trabalhos</a>
+                <a href="#">Ver Propostas</a>
+                <section class="nav-discente">
+                    <a href="#">Enviar Trabalho</a>
+                </section>
+                <section class="nav-coordenador">
+                    <a href="#">Aprovações Pendentes</a>
+                </section>
+                <section class="nav-docente">
+                    <a href="#">Cadastrar Propostas</a>
+                </section>
+            </nav>
+        </header>
+
+        <dialog class="elevated2">
+            <h2>Título do Dialog</h2>
+            <p class="paragraph1 low-emph">
+                Texto do Dialog com cada vez mais palavras escritas para tentar forçar uma quebra de linha. Espero que isto seja o suficiente.
+            </p>
+            <button onclick="closeDialog()" class="raised">Positivo</button>
+            <button onclick="closeDialog()" class="text">Negativo</button>
+        </dialog>
+
+        <section class="main elevated1">
+            <h1>Cadastrar Proposta de Trabalho</h1>
+            <p class="paragraph1 low-emph">
+                Preencha todos os campos obrigatórios e clique "Enviar".
+            </p>
+
+            <hr>
+            <fieldset>
+                <label for="input">Título</label>
+                <input type="text" name="input" id="input" placeholder="Insira o título">
+            </fieldset>
+
+            <fieldset>
+                <label for="select">Área de Pesquisa</label>
+                <select name="select" id="select" placeholder="Selecione a área de pesquisa">
+                    <option value="1">Engenharia de Software</option>
+                    <option value="2">Grafos e Combinatória</option>
+                    <option value="3">Inteligência Artificial</option>
+                </select>
+            </fieldset>
+
+            <fieldset>
+                <label for="area">Descrição</label>
+                <textarea name="area" id="area" placeholder="Insira aqui a descrição"></textarea>
+            </fieldset>
+
+            <div class="enviarForm">
+                <button class="raised">Enviar</button>
+            </div>
+        </section>
+
+        <script>
+            function openDialog() {
+                let dialog = document.querySelector('dialog');
+                dialog.showModal();
+            }
+
+            function closeDialog() {
+                let dialog = document.querySelector('dialog');
+                dialog.close();
+            }
+        </script>
+    </body>
+</html>
