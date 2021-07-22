@@ -12,7 +12,7 @@
     --msg-background: rgba(255, 193, 7, 0.68);
 }
 
-/* Smartphones */
+/* Laptops and desktops */
 @media only screen and (min-width: 768px) {
     .main {
         width: 70%;
@@ -26,9 +26,22 @@
     .app-bar .app-name {
         font-size: 18pt;
     }
+
+    .filters {
+        flex-direction: row;
+    }
+    
+    .filters button {
+        min-width: 100pt;
+        max-width: 200pt;
+        margin-left: 16px;
+        margin-bottom: 8px;
+        margin-right: unset;
+        align-self: flex-end;
+    }
 }
 
-/* Laptops and desktops */
+/* Smartphones */
 @media only screen and (max-width: 768px) {
     .main {
         width: 100%;
@@ -41,6 +54,18 @@
 
     .app-bar .app-name {
         font-size: 14pt;
+    }
+
+    .filters {
+        flex-direction: column;
+    }
+
+    .filters button {
+        min-width: unset;
+        max-width: unset;
+        margin: unset;
+        align-self: unset;
+        margin-right: 16px;
     }
 }
 
@@ -276,6 +301,10 @@ fieldset textarea {
     margin: 0 -8px;
 }
 
+.side-by-side-fields .half {
+    align-self: flex-end;
+}
+
 /* One side of the side-by-side fields */
 fieldset.half {
     width: 50%;
@@ -483,4 +512,18 @@ ul li .description .text { /* paragraph2 */
 .enviarForm {
     display: flex;
     justify-content: flex-end;
+}
+
+.filters {
+    display: flex;
+    justify-content: stretch;
+    margin-top: 16px;
+}
+
+.filters .side-by-side-fields {
+    width: 100%;
+}
+
+.filters button {
+    flex-grow: 1;
 }
