@@ -39,3 +39,15 @@ Route.get('/alterarTrabalho', async ({ view }) => {
 Route.get('/cadastrarProposta', async ({ view }) => {
   return view.render('cadastrar_proposta')
 })
+
+Route.get('/listarPropostas', async ({ view }) => {
+  return view.render('listar_propostas')
+})
+
+Route.get('/listarTrabalhos', async ({ view }) => {
+  return view.render('listar_trabalhos')
+})
+
+Route.get('/aprovacoesPendentes', async ({ view }) => {
+  return view.render('aprovacoes_pendentes')
+})
