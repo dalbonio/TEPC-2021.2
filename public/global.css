@@ -151,6 +151,7 @@ h3 {
 /* Use the 'paper' color for the background, to keep users focused on the content */
 body {
     background-color: var(--background);
+    min-height: 100vh;
 }
 
 /* App bar maintains consistency across devices and other apps */
