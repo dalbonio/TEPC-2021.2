@@ -5,37 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sistema de Gerenciamento de TCC</title>
-
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-        <link rel="stylesheet" href="global.css">
+        @include('links')
     </head>
     <body>
-        <header class="app-bar elevated2">
-            <img id="logo" src="../img/ufrrj.jpg" alt="UFRRJ">
-            <span class="app-name"><strong>SISTEMA DE</strong><br> GERENCIAMENTO DE TCC</span>
-            <a href="#" class="material-icons menu">menu</a>
-            <nav class="elevated2">
-                <span class="hello">Olá, Fulano da Silva</span>
-                <a href="#">Sair</a>
-                <a href="#">Ver Trabalhos</a>
-                <a href="#">Ver Propostas</a>
-                <section class="nav-discente">
-                    <a href="#">Enviar Trabalho</a>
-                </section>
-                <section class="nav-coordenador">
-                    <a href="#">Aprovações Pendentes</a>
-                </section>
-                <section class="nav-docente">
-                    <a href="#">Cadastrar Propostas</a>
-                </section>
-            </nav>
-        </header>
-
+        @include('header')
         <section class="main elevated1">
             <h1>Trabalhos enviados</h1>
             <p class="paragraph1 low-emph">
