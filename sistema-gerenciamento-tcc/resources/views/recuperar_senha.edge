@@ -12,11 +12,14 @@
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
         <link rel="stylesheet" href="global.css">
     </head>
     <body>
         <header class="app-bar elevated2">
-            <img id="logo" src="img/ufrrj.jpg" alt="UFRRJ">
+            <img id="logo" src="../img/ufrrj.jpg" alt="UFRRJ">
             <span class="app-name"><strong>SISTEMA DE</strong><br> GERENCIAMENTO DE TCC</span>
             <a href="#" class="material-icons menu">menu</a>
             <nav class="elevated2">
@@ -36,43 +39,16 @@
             </nav>
         </header>
 
-        <dialog class="elevated2">
-            <h2>Título do Dialog</h2>
-            <p class="paragraph1 low-emph">
-                Texto do Dialog com cada vez mais palavras escritas para tentar forçar uma quebra de linha. Espero que isto seja o suficiente.
-            </p>
-            <button onclick="closeDialog()" class="raised">Positivo</button>
-            <button onclick="closeDialog()" class="text">Negativo</button>
-        </dialog>
-
         <section class="main elevated1">
-            <h1>Cadastrar Proposta de Trabalho</h1>
-            <p class="paragraph1 low-emph">
-                Preencha todos os campos obrigatórios e clique "Enviar".
-            </p>
+            <h1><strong>Recuperar Senha</strong></h1>
 
             <hr>
             <fieldset>
-                <label for="input">Título</label>
-                <input type="text" name="input" id="input" placeholder="Insira o título">
+                <label for="input">E-MAIL</label>
+                <input type="text" name="input" id="input" placeholder="Digite seu e-mail">
             </fieldset>
-
-            <fieldset>
-                <label for="select">Área de Pesquisa</label>
-                <select name="select" id="select" placeholder="Selecione a área de pesquisa">
-                    <option value="1">Engenharia de Software</option>
-                    <option value="2">Grafos e Combinatória</option>
-                    <option value="3">Inteligência Artificial</option>
-                </select>
-            </fieldset>
-
-            <fieldset>
-                <label for="area">Descrição</label>
-                <textarea name="area" id="area" placeholder="Insira aqui a descrição"></textarea>
-            </fieldset>
-
-            <div class="enviarForm">
-                <button class="raised">Enviar</button>
+            <div class="d-flex flex-column mt-4 align-items-end">
+                <button class="raised mt-2">ENVIAR CÓDIGO</button>
             </div>
         </section>
 

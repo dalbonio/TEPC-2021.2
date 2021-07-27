@@ -40,14 +40,34 @@ Route.get('/cadastrarProposta', async ({ view }) => {
   return view.render('cadastrar_proposta')
 })
 
+Route.get('/cadastrar', async ({ view }) => {
+  return view.render('cadastrar')
+})
+
+Route.get('/login', async ({ view }) => {
+  return view.render('login')
+})
+
+Route.get('/recuperarSenha', async ({ view }) => {
+  return view.render('recuperar_senha')
+})
+
+Route.get('/rejeitarSubmissao', async ({ view }) => {
+  return view.render('rejeitar_submissao')
+})
+
+Route.get('/verTrabalho', async ({ view }) => {
+  return view.render('ver_trabalho')
+})
+
+Route.get('/aprovacoesPendentes', async ({ view }) => {
+  return view.render('aprovacoes_pendentes')
+})
+
 Route.get('/listarPropostas', async ({ view }) => {
   return view.render('listar_propostas')
 })
 
 Route.get('/listarTrabalhos', async ({ view }) => {
   return view.render('listar_trabalhos')
-})
-
-Route.get('/aprovacoesPendentes', async ({ view }) => {
-  return view.render('aprovacoes_pendentes')
 })
