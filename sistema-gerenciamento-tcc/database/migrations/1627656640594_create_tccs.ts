@@ -1,12 +1,16 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Coordinators extends BaseSchema {
-  protected tableName = 'coordinators'
+export default class Tccs extends BaseSchema {
+  protected tableName = 'tccs'
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.integer('user_id').unsigned().references('id').inTable('users')
+      table.integer('professor_id').unsigned().references('id').inTable('professors')
+      table.boolean('accepted').notNullable()
+      table.binary('file_content')
+      table.string('filename')
+      table.integer('research_area_id').unsigned().references('id').inTable('research_areas')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
