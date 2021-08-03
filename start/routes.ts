@@ -19,6 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import User from '../app/Models/User'
 
 Route.get('/', async ({ view }) => {
   return view.render('welcome')
@@ -70,4 +71,17 @@ Route.get('/listarPropostas', async ({ view }) => {
 
 Route.get('/listarTrabalhos', async ({ view }) => {
   return view.render('listar_trabalhos')
+})
+
+Route.post('/api/login', async ({ auth, request, response }) => {
+  const email = request.input('email')
+  const password = request.input('password')
+  const user = await User.findBy('email', email)
+  console.log(`email: ${email}, password: ${password}, user: ${user}`)
+  try {
+    const token = await auth.use('api').attempt(email, password)
+    return { user: user, token: token }
+  } catch {
+    return response.badRequest('Invalid credentials')
+  }
 })
