@@ -27,4 +27,7 @@ export default class Professor extends BaseModel {
 
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
+
+  @column()
+  public userId: number
 }

@@ -25,8 +25,14 @@ export default class Student extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
+  @column()
+  public registrationNumber: String
+
   @hasOne(() => Tcc)
   public tccs: HasOne<typeof Tcc>
+
+  @column()
+  public userId: number
 
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
