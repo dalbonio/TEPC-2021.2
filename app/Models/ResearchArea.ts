@@ -1,5 +1,16 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  column,
+  hasOne,
+  HasOne,
+  hasMany,
+  HasMany,
+  belongsTo,
+  BelongsTo,
+  manyToMany,
+  ManyToMany,
+} from '@ioc:Adonis/Lucid/Orm'
 
 export default class ResearchArea extends BaseModel {
   @column({ isPrimary: true })
