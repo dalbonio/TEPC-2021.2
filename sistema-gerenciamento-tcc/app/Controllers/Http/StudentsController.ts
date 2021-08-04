@@ -9,7 +9,6 @@ export default class StudentsController {
       email: ctx.request.input('email'),
       password: ctx.request.input('password'),
     }
-    console.log(412412)
     const userFound = await User.findBy('email', userJson.email)
     if (userFound !== null) {
       return { error: 'Usuário já está em uso' }

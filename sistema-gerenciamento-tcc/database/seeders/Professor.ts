@@ -6,11 +6,18 @@ export default class ProfessorSeeder extends BaseSeeder {
   public async run() {
     const users = await User.createMany([
       {
+        name: 'Filipe Braida',
         email: 'braida@email.com',
         password: 'senha',
       },
       {
+        name: 'Bruno Dembogurski',
         email: 'bruno@email.com',
+        password: 'senha',
+      },
+      {
+        name: 'Filipe Duarte',
+        email: 'duarte@email.com',
         password: 'senha',
       },
     ])

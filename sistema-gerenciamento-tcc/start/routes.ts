@@ -22,6 +22,7 @@ import Route from '@ioc:Adonis/Core/Route'
 import User from '../app/Models/User'
 
 Route.post('/api/createStudent', 'StudentsController.create')
+Route.post('/api/createTcc', 'TccsController.create')
 
 Route.get('/example', async ({ view }) => {
   return view.render('example')
