@@ -19,9 +19,7 @@ test.group('Login', (group) => {
     /**
      * Make request
      */
-    const userFound = await User.findBy('email', 'example@email.com')
     let userCreated
-    console.log(userFound)
     if ((await User.findBy('email', 'example@email.com')) === null) {
       userCreated = await User.create({
         email: 'example@email.com',
@@ -29,7 +27,6 @@ test.group('Login', (group) => {
         name: 'Teste',
       })
     }
-    console.log(userCreated)
     const userJson = { email: 'example@email.com', password: 'senha' }
     const response = await supertest(BASE_URL).post('/api/login').send(userJson).expect(200)
     //const user = User.find_by_email(userJson.email);
