@@ -10,6 +10,8 @@ export default class Tccs extends BaseSchema {
       table.boolean('accepted').notNullable()
       table.binary('file_content')
       table.string('filename')
+      table.string('resumo')
+      table.string('abstract')
       table.integer('research_area_id').unsigned().references('id').inTable('research_areas')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

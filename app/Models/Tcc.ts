@@ -25,6 +25,18 @@ export default class Tcc extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
+  @column()
+  public resumo: string
+
+  @column()
+  public abstract: string
+
+  @column()
+  public filename: string
+
+  @column()
+  public file: BinaryType
+
   @hasMany(() => Student)
   public students: HasMany<typeof Student>
 
