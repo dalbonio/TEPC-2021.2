@@ -251,7 +251,7 @@ fieldset label {
 fieldset input,textarea,select {
     display: block;
     height: 48px;
-    width: 100%;
+    width: 50%;
     border: 1px solid var(--line);
     border-radius: 4px;
     box-sizing: border-box;
