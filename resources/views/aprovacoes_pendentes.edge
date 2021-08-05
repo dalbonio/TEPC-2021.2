@@ -1,64 +1,77 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sistema de Gerenciamento de TCC</title>
-        @include('links')
-    </head>
-    <body>
-        @include('header')
-        <section class="main elevated1">
-            <h1>Detalhes do Trabalho</h1>
-            <p class="paragraph1 low-emph">
-                Veja mais informações sobre este trabalho a seguir e confirme a precisão e conformidade de todos os dados descritos. Caso haja alguma inconformidade comunique ao discente para que o mesmo a retifique.
-				Caso a submissão esteja conforme os padrões, aprove e o trabalho será disponibilizado para acesso de todos.
-            </p>
 
-           
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gerenciamento de TCC</title>
+    @include('links')
+</head>
 
-            <ul class="ps-0">
-                <li class="px-0 pt-4 border-light">
+<body>
+    @include('header')
+    <section class="main elevated1">
+        <h1>Detalhes do Trabalho</h1>
+        <p class="paragraph1 low-emph">
+            Veja mais informações sobre este trabalho a seguir e confirme a precisão e conformidade de todos os dados
+            descritos. Caso haja alguma inconformidade comunique ao discente para que o mesmo a retifique.
+            Caso a submissão esteja conforme os padrões, aprove e o trabalho será disponibilizado para acesso de todos.
+        </p>
+
+
+
+        <ul class="ps-0">
+            <li class="px-0 pt-4 border-light">
+                <div class="description">
+                    <span class="overline">Engenharia de Software</span>
+                    <span class="title"><strong>Sistema de Gerenciamento de Trabalho de Conclusão de
+                            Curso</strong></span>
+                    <span class="text"><strong>Bruno Benicio, Lucas Nunes, Natalia Zambe</strong>Sob orientação de
+                        Filipe Braida do Carmo</span>
+                    <br>
                     <div class="description">
-                        <span class="overline">Engenharia de Software</span>
-                        <span class="title"><strong>Sistema de Gerenciamento de Trabalho de Conclusão de Curso</strong></span>
-                        <span class="text"><strong>Bruno Benicio, Lucas Nunes, Natalia Zambe</strong>Sob orientação de Filipe Braida do Carmo</span>
-						<br>
-						<div class="description">
-							<span class="title"><strong>RESUMO</strong></span>
-							<span class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</span>
-							<br>
-							<div class="description">
-								<span class="title"><strong>ABSTRACT</strong></span>
-								<span class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</span>
-							</div>
-							<br>
-						</div>
-                        <div class="row d-flex">
-                            <div class="col-md-6"></div>
-                            <div class="col-md-6">
-                                <div class="row d-flex gx-0">
-                                    <div class="col-md-6 px-2"></div>
-                                    <div class="col-md-6 px-md-2">
-                                        <button class="raised w-100">DOWNLOAD</button>
-                                    </div>
-                                </div>
-                                <div class="row d-flex gx-0 mt-2">
-                                    <div class="col-md-6 px-md-2">
-                                        <button class="outlined w-100">REJEITAR</button>
-                                    </div>
-                                    <div class="col-md-6 px-md-2">
-                                        <button class="raised w-100">APROVAR</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <span class="title"><strong>RESUMO</strong></span>
+                        <span class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                            sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                            laborum</span>
+                        <br>
+                        <div class="description">
+                            <span class="title"><strong>ABSTRACT</strong></span>
+                            <span class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                                deserunt mollit anim id est laborum</span>
                         </div>
-					</div>
-                </li> 
-            </ul>
-			
-            </div>
-        </section>
-    </body>
+                        <br>
+                    </div>
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-3 px-md-2">
+                            <a class="d-flex botao-arquivo align-items-center">
+                                <span class="material-icons">description</span>
+                                <strong><span class="ms-2">ARQUIVO.PDF</span></strong>
+                            </a>
+                        </div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3 px-md-2">
+                            <button class="outlined w-100">REJEITAR</button>
+                        </div>
+                        <div class="col-md-3 px-md-2">
+                            <button class="raised w-100">APROVAR</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </li>
+        </ul>
+
+        </div>
+    </section>
+</body>
+
 </html>
