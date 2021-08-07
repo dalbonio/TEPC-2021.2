@@ -21,6 +21,29 @@
         }
     </style>
 
+    <script>
+        async function login() {
+            const loggedIn = await fetch('/api/login', {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                }),
+                body: JSON.stringify({
+                    email: document.getElementById('email').value,
+                    password: document.getElementById('password').value,
+                }),
+            });
+
+            if (loggedIn.status !== 200) {
+                alert('Email ou Senha incorretos')
+            } else {
+                const res = await loggedIn.json()
+                document.cookie = `token=${res.token.token}`
+                alert('Entrouu')
+            }
+        }
+    </script>
+
 </head>
 
 <body class="d-flex flex-column bg-white">
@@ -32,35 +55,23 @@
         </div>
         <div style="width:400px; max-width: 95vw;" class="d-flex flex-column">
             <fieldset>
-                <label for="input">E-MAIL</label>
-                <input type="text" name="input" id="input" placeholder="Digite seu e-mail">
+                <label for="email">E-MAIL</label>
+                <input type="text" name="email" id="email" placeholder="Digite seu e-mail">
             </fieldset>
 
 
             <fieldset class="mb-4">
-                <label for="esq">SENHA</label>
-                <input class="w-100" type="password" name="input" id="input" placeholder="Digite sua senha">
+                <label for="password">SENHA</label>
+                <input class="w-100" type="password" name="password" id="password" placeholder="Digite sua senha">
             </fieldset>
 
 
-            <button class="raised mb-2">ENTRAR</button>
+            <button class="raised mb-2" onclick="login()">ENTRAR</button>
             <button class="outlined">CADASTRE-SE</button>
             <button class="text">Esqueceu a senha?</button>
         </div>
 
     </section>
-
-    <script>
-        function openDialog() {
-            let dialog = document.querySelector('dialog');
-            dialog.showModal();
-        }
-
-        function closeDialog() {
-            let dialog = document.querySelector('dialog');
-            dialog.close();
-        }
-    </script>
 </body>
 
 </html>

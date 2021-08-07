@@ -46,6 +46,17 @@ export default class TccsController {
     return tcc
   }
 
+  public async download(ctx: HttpContextContract) {
+    const tcc = await Tcc.find(ctx.params.id)
+    if (tcc === null) {
+      return { error: 'TCC não foi encontrado' }
+    }
+
+    ctx.response.header('content-disposition', `inline; filename="${tcc.filename}"`)
+    ctx.response.type('.pdf')
+    return tcc.file_content
+  }
+
   public async create(ctx: HttpContextContract) {
     const authors = ctx.request.input('authors')
     const professorName = ctx.request.input('professor')

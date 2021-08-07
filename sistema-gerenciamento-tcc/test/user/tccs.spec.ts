@@ -97,4 +97,33 @@ test.group('Tccs', (group) => {
       .expect(200)
     assert.strictEqual(detailRes.body.title, tccJson.title)
   }).timeout(0)
+
+  test('tcc is downloading', async (assert) => {
+    // create user
+    const userJson = {
+      email: 'example4@email.com',
+      name: 'Lucas',
+      password: 'senha',
+      registrationNumber: '121212121',
+    }
+    const res = await supertest(BASE_URL).post('/api/createStudent').send(userJson).expect(200)
+    // create tcc
+    const tccJson = {
+      title: 'TituloTeste',
+      authors: [res.body.user.id],
+      professor: 'Braida',
+      research_area: 'Engenharia de Software',
+      resumo: 'Lorem',
+      abstract: 'Loren',
+      filename: 'Lorem',
+      file: 'Loren',
+    }
+    const tccRes = await supertest(BASE_URL).post('/api/createTcc').send(tccJson).expect(200)
+
+    // get tcc
+    const downloadRes = await supertest(BASE_URL)
+      .get(`/api/downloadTcc/${tccRes.body.tcc.id}`)
+      .expect(200)
+    assert.strictEqual(downloadRes.body.toString(), tccJson.file)
+  }).timeout(0)
 })
