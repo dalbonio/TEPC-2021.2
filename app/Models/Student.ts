@@ -39,4 +39,7 @@ export default class Student extends BaseModel {
 
   @manyToMany(() => Proposal)
   public proposals: ManyToMany<typeof Proposal>
+
+  @column()
+  public tccId: number
 }
