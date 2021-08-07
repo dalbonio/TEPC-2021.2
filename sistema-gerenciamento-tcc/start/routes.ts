@@ -21,9 +21,6 @@
 import Route from '@ioc:Adonis/Core/Route'
 import User from '../app/Models/User'
 
-Route.post('/api/createStudent', 'StudentsController.create')
-Route.post('/api/createTcc', 'TccsController.create')
-
 Route.get('/example', async ({ view }) => {
   return view.render('example')
 })
@@ -84,6 +81,13 @@ Route.post('/api/login', async ({ auth, request, response }) => {
     return response.badRequest('Invalid credentials')
   }
 })
+
+Route.group(() => {
+  Route.post('createStudent', 'StudentsController.create')
+  Route.post('createTcc', 'TccsController.create')
+  Route.get('listTcc', 'TccsController.index')
+  Route.get('detailTcc/:id', 'TccsController.details')
+}).prefix('api')
 
 Route.post('/api/logout', async ({ auth, response }) => {
   await auth.use('api').revoke()

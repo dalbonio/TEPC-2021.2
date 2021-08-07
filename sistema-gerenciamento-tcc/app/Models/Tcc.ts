@@ -26,6 +26,9 @@ export default class Tcc extends BaseModel {
   public updatedAt: DateTime
 
   @column()
+  public title: string
+
+  @column()
   public resumo: string
 
   @column()
@@ -35,17 +38,23 @@ export default class Tcc extends BaseModel {
   public filename: string
 
   @column()
-  public file: BinaryType
+  public file_content: BinaryType
 
   @hasMany(() => Student)
   public students: HasMany<typeof Student>
 
-  @hasOne(() => ResearchArea)
-  public research_area: HasOne<typeof ResearchArea>
+  @column()
+  public researchAreaId: number
 
   @belongsTo(() => Professor)
   public professor: BelongsTo<typeof Professor>
 
+  @belongsTo(() => ResearchArea)
+  public researchArea: BelongsTo<typeof ResearchArea>
+
   @column()
-  public denied: boolean
+  public professorId: number
+
+  @column()
+  public accepted: boolean
 }

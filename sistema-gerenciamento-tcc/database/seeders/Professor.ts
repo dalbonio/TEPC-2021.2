@@ -12,7 +12,7 @@ export default class ProfessorSeeder extends BaseSeeder {
       },
       {
         name: 'Bruno Dembogurski',
-        email: 'bruno@email.com',
+        email: 'dembodurski@email.com',
         password: 'senha',
       },
       {

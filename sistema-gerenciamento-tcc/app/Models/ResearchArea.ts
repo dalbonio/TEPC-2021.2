@@ -11,10 +11,14 @@ import {
   manyToMany,
   ManyToMany,
 } from '@ioc:Adonis/Lucid/Orm'
+import Tcc from './Tcc'
 
 export default class ResearchArea extends BaseModel {
   @column({ isPrimary: true })
   public id: number
+
+  @hasMany(() => Tcc)
+  public tccs: HasMany<typeof Tcc>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
