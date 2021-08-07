@@ -19,8 +19,8 @@ export default class StudentsController {
     })
     await student.related('user').associate(user)
     return {
-      user: user,
-      student: student,
+      user: user.serialize(),
+      student: student.serialize(),
     }
   }
 }

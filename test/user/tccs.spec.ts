@@ -40,7 +40,6 @@ test.group('Tccs', (group) => {
       file: 'Loren',
     }
     const tccRes = await supertest(BASE_URL).post('/api/createTcc').send(tccJson).expect(200)
-    console.log(tccRes.body)
   })
 
   test('tcc is being listed', async (assert) => {
@@ -67,8 +66,8 @@ test.group('Tccs', (group) => {
 
     // list tcc
     const listRes = await supertest(BASE_URL).get('/api/listTcc').expect(200)
-    assert.strictEqual(listRes.body[0].title, tccJson.title)
-  })
+    assert.strictEqual(listRes.body.data[0].title, tccJson.title)
+  }).timeout(0)
 
   test('tcc is showing details', async (assert) => {
     // create user
@@ -92,10 +91,10 @@ test.group('Tccs', (group) => {
     }
     const tccRes = await supertest(BASE_URL).post('/api/createTcc').send(tccJson).expect(200)
 
-    // list tcc
-    const listRes = await supertest(BASE_URL)
+    // get tcc
+    const detailRes = await supertest(BASE_URL)
       .get(`/api/detailTcc/${tccRes.body.tcc.id}`)
       .expect(200)
-    assert.strictEqual(listRes.body.title, tccJson.title)
-  })
+    assert.strictEqual(detailRes.body.title, tccJson.title)
+  }).timeout(0)
 })
