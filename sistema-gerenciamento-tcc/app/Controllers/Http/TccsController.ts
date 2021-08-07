@@ -1,4 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Database from '@ioc:Adonis/Lucid/Database'
 import Professor from 'App/Models/Professor'
 import ResearchArea from 'App/Models/ResearchArea'
 import Student from 'App/Models/Student'
@@ -7,17 +8,42 @@ import User from 'App/Models/User'
 
 export default class TccsController {
   public async index(ctx: HttpContextContract) {
-    const tccsList = (await Tcc.all()).map((tcc) => tcc.serialize())
+    const page = ctx.request.input('page', 1)
+    const limit = 10
+    const tccsList = await (Database.query()
+      .from('tccs')
+      .join('students', 'tccs.id', 'students.tcc_id')
+      .join('professors', 'tccs.professor_id', 'professors.id')
+      .join('users as su', 'students.user_id', 'su.id')
+      .join('users as pu', 'professors.user_id', 'pu.id')
+      .join('research_areas', 'tccs.research_area_id', 'research_areas.id')
+      .select('tccs.*')
+      .select('su.name as author')
+      .select('pu.name as professor')
+      .select('research_areas.name as research_area')
+      .paginate(page, limit))
+
     return tccsList
-    // author, professor, researchArea
   }
 
   public async details(ctx: HttpContextContract) {
-    const tcc = await Tcc.findBy('id', ctx.params.id)
+    const tcc = await (Database.query()
+      .from('tccs')
+      .where('tccs.id', ctx.params.id)
+      .join('students', 'tccs.id', 'students.tcc_id')
+      .join('professors', 'tccs.professor_id', 'professors.id')
+      .join('users as su', 'students.user_id', 'su.id')
+      .join('users as pu', 'professors.user_id', 'pu.id')
+      .join('research_areas', 'tccs.research_area_id', 'research_areas.id')
+      .select('tccs.*')
+      .select('su.name as author')
+      .select('pu.name as professor')
+      .select('research_areas.name as research_area')
+      .first())
     if (tcc === null) {
       return { error: 'TCC não foi encontrado' }
     }
-    return tcc.serialize()
+    return tcc
   }
 
   public async create(ctx: HttpContextContract) {
