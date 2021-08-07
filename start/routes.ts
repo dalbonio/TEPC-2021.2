@@ -65,7 +65,9 @@ Route.get('/listarPropostas', async ({ view }) => {
   return view.render('listar_propostas')
 })
 
-Route.get('/listarTrabalhos', async ({ view }) => {
+Route.get('/listarTrabalhos', async ({ auth, view }) => {
+  await auth.use('api').authenticate()
+
   return view.render('listar_trabalhos')
 })
 
@@ -87,6 +89,7 @@ Route.group(() => {
   Route.post('createTcc', 'TccsController.create')
   Route.get('listTcc', 'TccsController.index')
   Route.get('detailTcc/:id', 'TccsController.details')
+  Route.get('downloadTcc/:id', 'TccsController.download')
 }).prefix('api')
 
 Route.post('/api/logout', async ({ auth, response }) => {
