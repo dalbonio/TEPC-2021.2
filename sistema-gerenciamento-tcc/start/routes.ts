@@ -21,22 +21,6 @@
 import Route from '@ioc:Adonis/Core/Route'
 import User from '../app/Models/User'
 
-Route.get('/example', async ({ view }) => {
-  return view.render('example')
-})
-
-Route.get('/enviarTrabalho', async ({ view }) => {
-  return view.render('enviar_trabalho')
-})
-
-Route.get('/alterarTrabalho', async ({ view }) => {
-  return view.render('alterar_trabalho')
-})
-
-Route.get('/cadastrarProposta', async ({ view }) => {
-  return view.render('cadastrar_proposta')
-})
-
 Route.get('/cadastrar', async ({ view }) => {
   return view.render('cadastrar')
 })
@@ -49,27 +33,39 @@ Route.get('/recuperarSenha', async ({ view }) => {
   return view.render('recuperar_senha')
 })
 
+Route.get('/enviarTrabalho', async ({ view }) => {
+  return view.render('enviar_trabalho')
+}).middleware(['webAuth', 'auth', 'userRole'])
+
+Route.get('/alterarTrabalho', async ({ view }) => {
+  return view.render('alterar_trabalho')
+}).middleware(['webAuth', 'auth', 'userRole'])
+
+Route.get('/cadastrarProposta', async ({ view }) => {
+  return view.render('cadastrar_proposta')
+}).middleware(['webAuth', 'auth', 'userRole'])
+
 Route.get('/rejeitarSubmissao', async ({ view }) => {
   return view.render('rejeitar_submissao')
-})
+}).middleware(['webAuth', 'auth', 'userRole'])
 
 Route.get('/verTrabalho', async ({ view }) => {
   return view.render('ver_trabalho')
-})
+}).middleware(['webAuth', 'auth', 'userRole'])
 
 Route.get('/aprovacoesPendentes', async ({ view }) => {
   return view.render('aprovacoes_pendentes')
-})
+}).middleware(['webAuth', 'auth', 'userRole'])
 
 Route.get('/listarPropostas', async ({ view }) => {
   return view.render('listar_propostas')
-})
+}).middleware(['webAuth', 'auth', 'userRole'])
 
-Route.get('/listarTrabalhos', async ({ auth, view }) => {
-  await auth.use('api').authenticate()
-
+Route.get('/listarTrabalhos', async ({ view }) => {
   return view.render('listar_trabalhos')
-})
+}).middleware(['webAuth', 'auth', 'userRole'])
+
+// API routes
 
 Route.post('/api/login', async ({ auth, request, response }) => {
   const email = request.input('email')
@@ -84,17 +80,19 @@ Route.post('/api/login', async ({ auth, request, response }) => {
   }
 })
 
+Route.post('/api/logout', async ({ auth }) => {
+  await auth.use('api').revoke()
+  return {
+    revoked: true,
+  }
+})
+
 Route.group(() => {
   Route.post('createStudent', 'StudentsController.create')
   Route.post('createTcc', 'TccsController.create')
   Route.get('listTcc', 'TccsController.index')
   Route.get('detailTcc/:id', 'TccsController.details')
   Route.get('downloadTcc/:id', 'TccsController.download')
-}).prefix('api')
-
-Route.post('/api/logout', async ({ auth, response }) => {
-  await auth.use('api').revoke()
-  return {
-    revoked: true,
-  }
 })
+  .prefix('api')
+  .middleware('auth')
