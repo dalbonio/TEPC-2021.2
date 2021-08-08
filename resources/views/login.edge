@@ -39,11 +39,10 @@
             } else {
                 const res = await loggedIn.json()
                 document.cookie = `token=${res.token.token}`
-                alert('Entrouu')
+                document.location.href = '/listarTrabalhos'
             }
         }
     </script>
-
 </head>
 
 <body class="d-flex flex-column bg-white">
@@ -54,24 +53,31 @@
             <h1 class="fw-normal">GERENCIAMENTO DE TCC</h1>
         </div>
         <div style="width:400px; max-width: 95vw;" class="d-flex flex-column">
-            <fieldset>
-                <label for="email">E-MAIL</label>
-                <input type="text" name="email" id="email" placeholder="Digite seu e-mail">
-            </fieldset>
+            <form onsubmit="login()">
+                <fieldset>
+                    <label for="email">E-MAIL</label>
+                    <input type="text" name="email" id="email" placeholder="Digite seu e-mail">
+                </fieldset>
 
 
-            <fieldset class="mb-4">
-                <label for="password">SENHA</label>
-                <input class="w-100" type="password" name="password" id="password" placeholder="Digite sua senha">
-            </fieldset>
+                <fieldset class="mb-4">
+                    <label for="password">SENHA</label>
+                    <input class="w-100" type="password" name="password" id="password" placeholder="Digite sua senha">
+                </fieldset>
 
-
+                <input type="submit" value="" style="display: none">
+            </form>
             <button class="raised mb-2" onclick="login()">ENTRAR</button>
             <button class="outlined">CADASTRE-SE</button>
             <button class="text">Esqueceu a senha?</button>
         </div>
 
     </section>
-</body>
 
+    <script>
+        const form = document.getElementsByTagName("form")[0];
+        function handleForm(event) { event.preventDefault(); } 
+        form.addEventListener('submit', handleForm);
+    </script>
+</body>
 </html>
