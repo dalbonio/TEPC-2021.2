@@ -21,28 +21,7 @@
         }
     </style>
 
-    <script>
-        async function login() {
-            const loggedIn = await fetch('/api/login', {
-                method: 'POST',
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                }),
-                body: JSON.stringify({
-                    email: document.getElementById('email').value,
-                    password: document.getElementById('password').value,
-                }),
-            });
-
-            if (loggedIn.status !== 200) {
-                alert('Email ou Senha incorretos')
-            } else {
-                const res = await loggedIn.json()
-                document.cookie = `token=${res.token.token}`
-                document.location.href = '/listarTrabalhos'
-            }
-        }
-    </script>
+    <script src="/js/login.js"></script>
 </head>
 
 <body class="d-flex flex-column bg-white">
@@ -56,28 +35,22 @@
             <form onsubmit="login()">
                 <fieldset>
                     <label for="email">E-MAIL</label>
-                    <input type="text" name="email" id="email" placeholder="Digite seu e-mail">
+                    <input type="email" name="email" id="email" placeholder="Digite seu e-mail" required>
                 </fieldset>
 
 
                 <fieldset class="mb-4">
                     <label for="password">SENHA</label>
-                    <input class="w-100" type="password" name="password" id="password" placeholder="Digite sua senha">
+                    <input class="w-100" type="password" name="password" id="password" placeholder="Digite sua senha" required>
                 </fieldset>
 
                 <input type="submit" value="" style="display: none">
             </form>
             <button class="raised mb-2" onclick="login()">ENTRAR</button>
-            <button class="outlined">CADASTRE-SE</button>
-            <button class="text">Esqueceu a senha?</button>
+            <button class="outlined" onclick="document.location.href='/cadastrar'">CADASTRE-SE</button>
+            <button class="text" onclick="document.location.href='/recuperarSenha'">Esqueceu a senha?</button>
         </div>
 
     </section>
-
-    <script>
-        const form = document.getElementsByTagName("form")[0];
-        function handleForm(event) { event.preventDefault(); } 
-        form.addEventListener('submit', handleForm);
-    </script>
 </body>
 </html>

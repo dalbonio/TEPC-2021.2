@@ -21,6 +21,10 @@
 import Route from '@ioc:Adonis/Core/Route'
 import User from '../app/Models/User'
 
+Route.get('/', async ({ view }) => {
+  view.render('login')
+}).middleware(['webAuth', 'auth'])
+
 Route.get('/cadastrar', async ({ view }) => {
   return view.render('cadastrar')
 })

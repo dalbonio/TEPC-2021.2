@@ -6,66 +6,56 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sistema de Gerenciamento de TCC - Exemplo</title>
         @include('links')
+
+        <script src="/js/dialog.js"></script>
+        <script src="/js/register.js"></script>
     </head>
     <body>
         @include('header_without_menu')
         <dialog class="elevated2">
-            <h2>Título do Dialog</h2>
-            <p class="paragraph1 low-emph">
-                Texto do Dialog com cada vez mais palavras escritas para tentar forçar uma quebra de linha. Espero que isto seja o suficiente.
-            </p>
-            <button onclick="closeDialog()" class="raised">Positivo</button>
-            <button onclick="closeDialog()" class="text">Negativo</button>
+            <h2>Verifique as Informações</h2>
+            <p class="paragraph1 low-emph"></p>
+            <button onclick="closeDialog()" class="raised"></button>
+            <button onclick="closeDialog()" class="text" hidden></button>
         </dialog>
 
         <section class="main elevated1">
             <h1>Criar conta</h1>
 
             <hr>
+            <form>
             <fieldset>
-                <label for="input">NOME COMPLETO</label>
-                <input type="text" name="input" id="input" placeholder="Digitei seu nome">
+                <label for="name">NOME COMPLETO</label>
+                <input type="text" name="name" id="name" placeholder="Digitei seu nome" required>
             </fieldset>
 			<fieldset>
-                <label for="input">E-MAIL</label>
-                <input type="text" name="input" id="input" placeholder="Digite seu e-mail">
+                <label for="email">E-MAIL</label>
+                <input type="email" name="email" id="email" placeholder="Digite seu e-mail" required>
             </fieldset>
 			<div class="row">
                 <fieldset class="col-md-6">
-                    <label for="esq">MATRÍCULA</label>
-                    <input type="text" name="esq" id="esq" placeholder="Digite sua matrícula">
+                    <label for="registration">MATRÍCULA</label>
+                    <input type="text" name="registration" id="registration" placeholder="Digite sua matrícula" required pattern="\d{10}|\d{11}">
                 </fieldset>
             </div>
+            </form>
             <div class="row">
                 <fieldset class="col-md-6">
-                    <label for="esq">SENHA</label>
-                    <input type="password" name="esq" id="esq" placeholder="Crie uma senha">
+                    <label for="password">SENHA</label>
+                    <input type="password" name="password" id="password" placeholder="Crie uma senha" required>
                 </fieldset>
 
                 <fieldset class="col-md-6">
-                    <label for="dir">CONFIRMAR</label>
-                    <input type="password" name="dir" id="dir" placeholder="Confirme sua senha">
+                    <label for="confirmPassword">CONFIRMAR</label>
+                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirme sua senha" required>
                 </fieldset>
             </div>
 
             <div class="float-end my-4">
-                <button class="text">Fazer login</button>
-                <button class="raised ms-4">Criar conta</button>
+                <button class="text" onclick="document.location.href='/login'">Fazer login</button>
+                <button class="raised ms-4" onclick="register()">Criar conta</button>
             </div>
 			
             <hr>
-
-
-        <script>
-            function openDialog() {
-                let dialog = document.querySelector('dialog');
-                dialog.showModal();
-            }
-
-            function closeDialog() {
-                let dialog = document.querySelector('dialog');
-                dialog.close();
-            }
-        </script>
     </body>
 </html>
