@@ -17,7 +17,8 @@ function makeTccListItem(researchArea, title, authors, professor, id) {
 
   const textSpan = document.createElement('span')
   textSpan.className = 'text'
-  textSpan.innerHTML = `${authors.join(' e ')}<br>Sob orientação de ${professor}`
+  // textSpan.innerHTML = `${authors.join(' e ')}<br>Sob orientação de ${professor}`
+  textSpan.innerHTML = `${authors}<br>Sob orientação de ${professor}`
   descriptionDiv.appendChild(textSpan)
 
   const actionDiv = document.createElement('div')

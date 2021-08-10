@@ -4,7 +4,17 @@ async function loadTccs() {
     .find((row) => row.startsWith('token='))
     .split('=')[1]
 
-  const res = await fetch(`/api/listTcc?page=${currentPage}`, {
+  const pageParam = currentPage !== 1 ? `page=${currentPage}` : ''
+  const queryParam = currentQuery.length > 0 ? `query=${encodeURI(currentQuery)}` : ''
+  const fieldParam = currentField.length > 0 ? `field=${encodeURI(currentField)}` : ''
+
+  let params = '?'
+  if (pageParam.length > 0) params += pageParam + '&'
+  if (queryParam.length > 0) params += queryParam + '&'
+  if (fieldParam.length > 0) params += fieldParam + '&'
+  params = params.slice(0, -1)
+
+  const res = await fetch(`/api/listTcc${params}`, {
     headers: new Headers({
       Authorization: `Bearer ${tk}`,
     }),
@@ -75,6 +85,11 @@ async function setupPagination(pagination) {
       link.className = 'selected'
     }
   }
+}
+
+async function filter() {
+  currentQuery = document.getElementById('query').value.trim()
+  currentField = document.getElementById('field').value
 }
 
 document.addEventListener('DOMContentLoaded', loadTccs)
