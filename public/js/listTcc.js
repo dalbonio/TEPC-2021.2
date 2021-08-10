@@ -33,6 +33,12 @@ async function setupList(tccList) {
   })
 }
 
+function cleanList() {
+  const listElement = document.getElementsByTagName('ul')[0]
+  const tccs = listElement.children.slice()
+  tccs.forEach((li) => li.remove())
+}
+
 async function setupPagination(pagination) {
   const pagElement = document.getElementsByClassName('pagination')[0]
   if (pagination.first_page === pagination.current_page) {
@@ -90,6 +96,9 @@ async function setupPagination(pagination) {
 async function filter() {
   currentQuery = document.getElementById('query').value.trim()
   currentField = document.getElementById('field').value
+
+  cleanList()
+  await loadTccs()
 }
 
 document.addEventListener('DOMContentLoaded', loadTccs)
