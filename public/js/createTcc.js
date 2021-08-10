@@ -3,7 +3,8 @@ async function send_tcc() {
         .split('; ')
         .find((row) => row.startsWith('token='))
         .split('=')[1]
-    const loggedIn = await fetch('/api/createTcc', {
+    
+    const tccRes = await fetch('/api/createTcc', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -13,9 +14,16 @@ async function send_tcc() {
         title: document.getElementById('title').value,
         authors: document.getElementById('authors').value,
         professor: document.getElementById('professor').value,
-        researchArea: document.getElementById('research-area').value,
+        research_area: document.getElementById('research-area').value,
         filename: 'Loren',
         file: document.getElementById('file'),
       }),
     })
+
+    if (tccRes.status >= 400 && tccRes.status < 600) {
+      tccRes.text().then(text => {alert(text)})
+    }
+    else{
+      alert("TCC Foi criado com sucesso")
+    }
   }

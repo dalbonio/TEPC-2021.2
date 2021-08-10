@@ -23,6 +23,7 @@ export default class TccsController {
       .select('research_areas.name as research_area')
       .paginate(page, limit))
 
+    console.log(tccsList)
     return tccsList
   }
 
@@ -58,9 +59,9 @@ export default class TccsController {
   }
 
   public async create(ctx: HttpContextContract) {
-    const authors = ctx.request.input('authors')
+    let authors = ctx.request.input('authors')
     const professorName = ctx.request.input('professor')
-    const researchAreaName = ctx.request.input('research_area')
+    const researchAreaId = ctx.request.input('research_area')
     const tccJson = {
       title: ctx.request.input('title'),
       resumo: ctx.request.input('resumo'),
@@ -71,9 +72,31 @@ export default class TccsController {
       accepted: false,
     }
 
+    console.log("Entrou no controller")
+    console.log(tccJson)
+    console.log(authors)
+    console.log(researchAreaId)
+    console.log(professorName)
+
+
+    let allStudents = await Student.query().preload('user')
+    var studentsDict = {}
+    for(var i = 0; i < allStudents.length; i++){
+      studentsDict[allStudents[i].user.name] = allStudents[i].id
+    }
+    authors = authors.split(',').map( (el) => el.trim() )
+    console.log(authors)
+    const authorsIds = authors.map( (author) => studentsDict[author]).filter( (el) => el != null)
+    console.log(studentsDict)
+    console.log(authorsIds)
+
+    if(authorsIds.length === 0){
+      return ctx.response.status(403).send({error: 'Autores Inválidos'})
+    }
+
     //compare auth email with authors student email to check if user is correct
     const professorUser = await User.query().where('name', 'LIKE', '%' + professorName + '%')
-    const researchArea = await ResearchArea.findBy('name', researchAreaName)
+    const researchArea = await ResearchArea.find(researchAreaId)
     if (researchArea === null) {
       return ctx.response.status(401).send({ error: 'Area de pesquisa não foi encontrada' })
     }
@@ -83,7 +106,7 @@ export default class TccsController {
     if (professor === null) {
       return ctx.response.status(401).send({ error: 'Professor não foi encontrado' })
     }
-    const students = await Student.query().whereIn('user_id', authors)
+    const students = await Student.query().whereIn('user_id', authorsIds)
     if (students === null) {
       return ctx.response.status(401).send({ error: 'Autor não foi encontrado' })
     }
@@ -93,8 +116,8 @@ export default class TccsController {
     }
     await tcc.related('professor').associate(professor)
     await students.forEach(async (student) => await tcc.related('students').save(student))
-    // await tcc.related('students').save(students)
-    // await tcc.related('research_area').save(researchArea)
+    await students.forEach(async (student) => await student.related('tcc').save(tcc)) 
+    await tcc.related('researchArea').associate(researchArea)
 
     return ctx.response.status(200).send({
       tcc: tcc,
