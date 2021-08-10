@@ -11,11 +11,19 @@ async function loadTccs() {
   })
 
   const responseData = await res.json()
+  setupList(responseData.data)
   setupPagination(responseData.meta)
-  console.log(responseData.data)
 }
 
-function setupPagination(pagination) {
+async function setupList(tccList) {
+  const listElement = document.getElementsByTagName('ul')[0]
+  tccList.forEach((tcc) => {
+    const li = makeTccListItem(tcc.research_area, tcc.title, tcc.author, tcc.professor, tcc.id)
+    listElement.appendChild(li)
+  })
+}
+
+async function setupPagination(pagination) {
   const pagElement = document.getElementsByClassName('pagination')[0]
   if (pagination.first_page === pagination.current_page) {
     pagElement.firstElementChild.className = 'unavailable'

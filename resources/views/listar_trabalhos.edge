@@ -8,6 +8,7 @@
         @include('links')
 
         <script>const currentPage = {{ request.input('page', 1) }}</script>
+        <script src="/js/tccListItem.js"></script>
         <script src="/js/listTcc.js"></script>
     </head>
     <body>
@@ -43,36 +44,7 @@
             <hr>
 
             <ul>
-                <li>
-                    <div class="description">
-                        <span class="overline">Engenharia de Software</span>
-                        <span class="title">Sistema de Gerenciamento de Trabalho de Conclusão de Curso</span>
-                        <span class="text">Bruno Benicio, Lucas Nunes, Natalia Zambe<br>Sob orientação de Filipe Braida do Carmo</span>
-                    </div>
-                    <div class="action">
-                        <button class="text"><span class="material-icons">open_in_new</span></button>
-                    </div>
-                </li>
-                <li>
-                    <div class="description">
-                        <span class="overline">Aprendizado de Máquina</span>
-                        <span class="title">Atingindo a Singularidade</span>
-                        <span class="text">Fulano da Silva<br>Sob orientação de Professor Muito Bom</span>
-                    </div>
-                    <div class="action">
-                        <button class="text"><span class="material-icons">open_in_new</span></button>
-                    </div>
-                </li>
-                <li>
-                    <div class="description">
-                        <span class="overline">Algoritmos e Combinatória</span>
-                        <span class="title">P ou NP: Eis a Questão</span>
-                        <span class="text">Joãozinho Santos Souza<br>Sob orientação de Professora Genial</span>
-                    </div>
-                    <div class="action">
-                        <button class="text"><span class="material-icons">open_in_new</span></button>
-                    </div>
-                </li>
+                
             </ul>
 
             <div class="pagination">
