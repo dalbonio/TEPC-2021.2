@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sistema de Gerenciamento de TCC - Exemplo</title>
         @include('links')
-        <script src="/js/tcc.js"></script>
+        <script src="/js/createTcc.js"></script>
     </head>
     <body>
         @include('header')
@@ -46,8 +46,8 @@
             <fieldset>
                 <label for="select">Área de Pesquisa</label>
                 <select name="select" id="research-area" placeholder="Selecione a área de pesquisa">
-                    @each(item in research-area)
-                        <option value={{item.name}}>{{item.name}}</option>
+                    @each(item in researchAreas)
+                        <option value={{item.id}}>{{item.name}}</option>
                     @end
                     {{--  <option value="Engenharia de Software">Engenharia de Software</option>
                     <option value="Grafos e Combinatória">Grafos e Combinatória</option>
@@ -76,7 +76,7 @@
             </fieldset>
 
             <div class="enviarForm">
-                <button class="raised" onclick="send_tcc({{token}})">Enviar</button>
+                <button class="raised" onclick="send_tcc()">Enviar</button>
             </div>
         </section>
 

@@ -29,7 +29,7 @@ export default class Student extends BaseModel {
   public registrationNumber: String
 
   @hasOne(() => Tcc)
-  public tccs: HasOne<typeof Tcc>
+  public tcc: HasOne<typeof Tcc>
 
   @column()
   public userId: number
