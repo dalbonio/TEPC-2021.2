@@ -91,8 +91,9 @@ Route.post('/api/logout', async ({ auth }) => {
   }
 })
 
+Route.post('/api/createStudent', 'StudentsController.create')
+
 Route.group(() => {
-  Route.post('createStudent', 'StudentsController.create')
   Route.post('createTcc', 'TccsController.create')
   Route.get('listTcc', 'TccsController.index')
   Route.get('detailTcc/:id', 'TccsController.details')
