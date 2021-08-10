@@ -27,12 +27,16 @@ async function register() {
   } else {
     const res = await fetch('/api/createStudent', {
       method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
       body: JSON.stringify(student),
     })
 
-    if (res.error) {
-      openDialog('Erro ao cadastrar', res.error, ' Ok ', null)
+    if (res.error || res.status !== 200) {
+      openDialog('Erro ao cadastrar', res.error || 'Entre em contado com o administrador do sistema', ' Ok ', null)
     } else {
+      console.log(res.body)
       openDialog(
         'Cadastro realizado com sucesso',
         'Por favor efetue o login, você será redirecionado automaticamente',
