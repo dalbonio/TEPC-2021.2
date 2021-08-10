@@ -71,8 +71,8 @@ Route.get('/listarPropostas', async ({ view }) => {
 }).middleware(['webAuth', 'auth', 'userRole'])
 
 Route.get('/listarTrabalhos', async ({ view }) => {
-  console.log(await Tcc.all())
-  return view.render('listar_trabalhos')
+  let researchAreas = (await ResearchArea.all()).map((ra) => ra.serialize())
+  return view.render('listar_trabalhos', { research_areas: researchAreas })
 }).middleware(['webAuth', 'auth', 'userRole'])
 
 // API routes
