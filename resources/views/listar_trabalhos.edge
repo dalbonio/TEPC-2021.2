@@ -6,6 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sistema de Gerenciamento de TCC</title>
         @include('links')
+
+        <script>const currentPage = {{ request.input('page', 1) }}</script>
+        <script src="/js/listTcc.js"></script>
     </head>
     <body>
         @include('header')
@@ -73,9 +76,9 @@
             </ul>
 
             <div class="pagination">
-                <a href="#" class="unavailable"><span class="material-icons">first_page</span></a>
-                <a href="#" class="unavailable"><span class="material-icons">navigate_before</span></a>
-                <a href="#" class="selected">1</a>
+                <a href="#"><span class="material-icons">first_page</span></a>
+                <a href="#"><span class="material-icons">navigate_before</span></a>
+                <a href="#">1</a>
                 <a href="#">2</a>
                 <a href="#">3</a>
                 <a href="#">4</a>
