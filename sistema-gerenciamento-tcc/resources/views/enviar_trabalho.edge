@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sistema de Gerenciamento de TCC - Exemplo</title>
         @include('links')
+        <script src="/js/tcc.js"></script>
     </head>
     <body>
         @include('header')
@@ -27,39 +28,42 @@
             <hr>
             <fieldset>
                 <label for="input">Título</label>
-                <input type="text" name="input" id="input" placeholder="Insira o título">
+                <input type="text" name="input" id="title" placeholder="Insira o título">
             </fieldset>
 
             <div class="side-by-side-fields">
                 <fieldset class="half">
                     <label for="esq">Autores</label>
-                    <input type="text" name="esq" id="esq" placeholder="Insira os autores">
+                    <input type="text" name="esq" id="authors" placeholder="Insira os autores separados por virgula">
                 </fieldset>
 
                 <fieldset class="half">
                     <label for="dir">Orientador(a)</label>
-                    <input type="text" name="dir" id="dir" placeholder="Insira o/a Orientador(a)">
+                    <input type="text" name="dir" id="professor" placeholder="Insira o/a Orientador(a)">
                 </fieldset>
             </div>
 
             <fieldset>
                 <label for="select">Área de Pesquisa</label>
-                <select name="select" id="select" placeholder="Selecione a área de pesquisa">
-                    <option value="1">Engenharia de Software</option>
-                    <option value="2">Grafos e Combinatória</option>
-                    <option value="3">Inteligência Artificial</option>
+                <select name="select" id="research-area" placeholder="Selecione a área de pesquisa">
+                    @each(item in research-area)
+                        <option value={{item.name}}>{{item.name}}</option>
+                    @end
+                    {{--  <option value="Engenharia de Software">Engenharia de Software</option>
+                    <option value="Grafos e Combinatória">Grafos e Combinatória</option>
+                    <option value="Inteligência Artificial">Inteligência Artificial</option>  --}}
                 </select>
             </fieldset>
 
             <div class="side-by-side-fields">
                 <fieldset class="half">
                     <label for="area">Resumo</label>
-                    <textarea name="area" id="area" placeholder="Insira aqui seu resumo"></textarea>
+                    <textarea name="area" id="resumo" placeholder="Insira aqui seu resumo"></textarea>
                 </fieldset>
 
                 <fieldset class="half">
                     <label for="area">Abstract</label>
-                    <textarea name="area" id="area" placeholder="Insira aqui seu abstract"></textarea>
+                    <textarea name="area" id="abstract" placeholder="Insira aqui seu abstract"></textarea>
                 </fieldset>
             </div>
 
@@ -72,7 +76,7 @@
             </fieldset>
 
             <div class="enviarForm">
-                <button class="raised">Enviar</button>
+                <button class="raised" onclick="send_tcc({{token}})">Enviar</button>
             </div>
         </section>
 
