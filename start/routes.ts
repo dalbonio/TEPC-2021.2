@@ -19,6 +19,8 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import ResearchArea from 'App/Models/ResearchArea'
+import Tcc from 'App/Models/Tcc'
 import User from '../app/Models/User'
 
 Route.get('/', async ({ response }) => {
@@ -38,7 +40,10 @@ Route.get('/recuperarSenha', async ({ view }) => {
 })
 
 Route.get('/enviarTrabalho', async ({ view }) => {
-  return view.render('enviar_trabalho')
+  let researchAreas = await ResearchArea.all()
+  console.log(researchAreas)
+  return view.render('enviar_trabalho',
+   {research_areas: researchAreas})
 }).middleware(['webAuth', 'auth', 'userRole'])
 
 Route.get('/alterarTrabalho', async ({ view }) => {
@@ -66,6 +71,7 @@ Route.get('/listarPropostas', async ({ view }) => {
 }).middleware(['webAuth', 'auth', 'userRole'])
 
 Route.get('/listarTrabalhos', async ({ view }) => {
+  console.log(await Tcc.all())
   return view.render('listar_trabalhos')
 }).middleware(['webAuth', 'auth', 'userRole'])
 
