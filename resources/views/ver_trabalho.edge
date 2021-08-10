@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sistema de Gerenciamento de TCC</title>
         @include('links')
+        <script>const id = {{request.input('tcc')}}</script>
+        <script src="/js/detailTcc.js"></script>
     </head>
     <body>
         @include('header')
@@ -16,21 +18,21 @@
 
             <ul class="ps-0">
                 <li class="px-0 pt-4 border-light">
-                    <div class="description">
-                        <span class="overline">Engenharia de Software</span>
-                        <span class="title"><strong>Sistema de Gerenciamento de Trabalho de Conclusão de Curso</strong></span>
-                        <span class="text"><strong>Bruno Benicio, Lucas Nunes, Natalia Zambe</strong>Sob orientação de Filipe Braida do Carmo</span>
+                    <div class="description" style="width: 100%">
+                        <span class="overline" id="field">Engenharia de Software</span>
+                        <span class="title" id="title"><strong>Sistema de Gerenciamento de Trabalho de Conclusão de Curso</strong></span>
+                        <span class="text" id="authors"><strong>Bruno Benicio, Lucas Nunes, Natalia Zambe</strong>Sob orientação de Filipe Braida do Carmo</span>
 						<br>
 						<div class="description">
 							<span class="title"><strong>RESUMO</strong></span>
-							<span class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</span>
+							<span class="text" id="resumo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</span>
 							<br>
 							<div class="description">
 								<span class="title"><strong>ABSTRACT</strong></span>
-								<span class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</span>
+								<span class="text" id="abstract">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</span>
 							</div>
 							<br>
-							<button class="raised float-end">DOWNLOAD</button>
+							<button class="raised float-end" id="download">DOWNLOAD</button>
 						</div>
 					</div>
                 </li> 
