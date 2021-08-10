@@ -9,6 +9,8 @@ import User from 'App/Models/User'
 export default class TccsController {
   public async index(ctx: HttpContextContract) {
     const page = ctx.request.input('page', 1)
+    const field = ctx.request.input('field', 0)
+    console.log(field)
     const limit = 10
     const tccsList = await (Database.query()
       .from('tccs')
@@ -21,9 +23,10 @@ export default class TccsController {
       .select('su.name as author')
       .select('pu.name as professor')
       .select('research_areas.name as research_area')
+      .if( field !== 0, (query) => query.where('research_areas.id', field))
       .paginate(page, limit))
 
-    console.log(tccsList)
+    console.log(tccsList.length)
     return tccsList
   }
 
