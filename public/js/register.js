@@ -34,7 +34,12 @@ async function register() {
     })
 
     if (res.error || res.status !== 200) {
-      openDialog('Erro ao cadastrar', res.error || 'Entre em contado com o administrador do sistema', ' Ok ', null)
+      openDialog(
+        'Erro ao cadastrar',
+        res.error || 'Entre em contado com o administrador do sistema',
+        ' Ok ',
+        null
+      )
     } else {
       console.log(res.body)
       openDialog(
