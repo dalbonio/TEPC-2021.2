@@ -14,7 +14,7 @@ async function login() {
     alert('Email ou Senha incorretos')
   } else {
     const res = await loggedIn.json()
-    document.cookie = `token=${res.token.token}`
+    document.cookie = `token=${res.token.token}; samesite=strict; secure`
     document.location.href = '/listarTrabalhos'
   }
 }

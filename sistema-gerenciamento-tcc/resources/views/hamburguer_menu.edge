@@ -1,6 +1,6 @@
 <nav class="elevated2">
     <span class="hello">Olá, {{ auth.user.name }}</span>
-    <a href="#">Sair</a>
+    <a href="javascript:logout()">Sair</a>
     <a href="/listarTrabalhos">Ver Trabalhos</a>
     <a href="listarPropostas">Ver Propostas</a>
     @if(auth.user.role === 'student')
@@ -17,3 +17,4 @@
     </section>
     @endif
 </nav>
+<script src="/js/logout.js"></script>
