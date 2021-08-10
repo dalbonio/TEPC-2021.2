@@ -43,7 +43,7 @@ Route.get('/enviarTrabalho', async ({ view }) => {
   let researchAreas = await ResearchArea.all()
   console.log(researchAreas)
   return view.render('enviar_trabalho',
-   {research_areas: researchAreas})
+   {researchAreas: researchAreas})
 }).middleware(['webAuth', 'auth', 'userRole'])
 
 Route.get('/alterarTrabalho', async ({ view }) => {
