@@ -106,7 +106,7 @@ export default class TccsController {
     if (professor === null) {
       return ctx.response.status(401).send({ error: 'Professor não foi encontrado' })
     }
-    const students = await Student.query().whereIn('user_id', authorsIds)
+    const students = await Student.query().whereIn('id', authorsIds).preload('user')
     if (students === null) {
       return ctx.response.status(401).send({ error: 'Autor não foi encontrado' })
     }
@@ -115,9 +115,12 @@ export default class TccsController {
       return ctx.response.status(401).send({error: 'Tcc não foi criado'})
     }
     await tcc.related('professor').associate(professor)
-    await students.forEach(async (student) => await tcc.related('students').save(student))
-    await students.forEach(async (student) => await student.related('tcc').save(tcc)) 
+    await tcc.related('students').saveMany(students)
+    await students.forEach(async (student) => await student.related('tcc').associate(tcc)) 
     await tcc.related('researchArea').associate(researchArea)
+
+    console.log(tcc.id, tcc.title)
+    console.log(students.length)
 
     return ctx.response.status(200).send({
       tcc: tcc,

@@ -28,8 +28,8 @@ export default class Student extends BaseModel {
   @column()
   public registrationNumber: String
 
-  @hasOne(() => Tcc)
-  public tcc: HasOne<typeof Tcc>
+  @belongsTo(() => Tcc)
+  public tcc: BelongsTo<typeof Tcc>
 
   @column()
   public userId: number
