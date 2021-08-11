@@ -20,7 +20,6 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 import ResearchArea from 'App/Models/ResearchArea'
-import Tcc from 'App/Models/Tcc'
 import User from '../app/Models/User'
 
 Route.get('/', async ({ response }) => {
@@ -42,8 +41,7 @@ Route.get('/recuperarSenha', async ({ view }) => {
 Route.get('/enviarTrabalho', async ({ view }) => {
   let researchAreas = await ResearchArea.all()
   console.log(researchAreas)
-  return view.render('enviar_trabalho',
-   {researchAreas: researchAreas})
+  return view.render('enviar_trabalho', { researchAreas: researchAreas })
 }).middleware(['webAuth', 'auth', 'userRole'])
 
 Route.get('/alterarTrabalho', async ({ view }) => {
@@ -103,7 +101,9 @@ Route.group(() => {
   Route.post('createTcc', 'TccsController.create')
   Route.get('listTcc', 'TccsController.index')
   Route.get('detailTcc/:id', 'TccsController.details')
-  Route.get('downloadTcc/:id', 'TccsController.download')
 })
   .prefix('api')
   .middleware('auth')
+
+// download route is accessible via web because it just returns a file
+Route.get('/api/downloadTcc/:id', 'TccsController.download').middleware(['webAuth', 'auth'])

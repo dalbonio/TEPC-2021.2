@@ -5,6 +5,7 @@ import ResearchArea from 'App/Models/ResearchArea'
 import Student from 'App/Models/Student'
 import Tcc from 'App/Models/Tcc'
 import User from 'App/Models/User'
+import { readFile } from 'fs/promises'
 
 export default class TccsController {
   public async index(ctx: HttpContextContract) {
@@ -23,7 +24,7 @@ export default class TccsController {
       .select('su.name as author')
       .select('pu.name as professor')
       .select('research_areas.name as research_area')
-      .if( field !== 0, (query) => query.where('research_areas.id', field))
+      .if(field !== 0, (query) => query.where('research_areas.id', field))
       .paginate(page, limit))
 
     console.log(tccsList.length)
@@ -65,36 +66,41 @@ export default class TccsController {
     let authors = ctx.request.input('authors')
     const professorName = ctx.request.input('professor')
     const researchAreaId = ctx.request.input('research_area')
+    const file = ctx.request.file('file', { extnames: ['pdf'] })
+
+    if (!file || !file.isValid) {
+      return ctx.response.status(403).send({ error: 'Arquivo inválido' })
+    }
+
     const tccJson = {
       title: ctx.request.input('title'),
       resumo: ctx.request.input('resumo'),
       abstract: ctx.request.input('abstract'),
       filename: ctx.request.input('filename'),
-      file_content: ctx.request.input('file'),
+      file_content: await readFile(file.tmpPath),
       researchAreaId: 0,
       accepted: false,
     }
 
-    console.log("Entrou no controller")
+    console.log('Entrou no controller')
     console.log(tccJson)
     console.log(authors)
     console.log(researchAreaId)
     console.log(professorName)
 
-
     let allStudents = await Student.query().preload('user')
-    var studentsDict = {}
-    for(var i = 0; i < allStudents.length; i++){
+    let studentsDict = {}
+    for (let i = 0; i < allStudents.length; i++) {
       studentsDict[allStudents[i].user.name] = allStudents[i].id
     }
-    authors = authors.split(',').map( (el) => el.trim() )
+    authors = authors.split(',').map((el) => el.trim())
     console.log(authors)
-    const authorsIds = authors.map( (author) => studentsDict[author]).filter( (el) => el != null)
+    const authorsIds = authors.map((author) => studentsDict[author]).filter((el) => el != null)
     console.log(studentsDict)
     console.log(authorsIds)
 
-    if(authorsIds.length === 0){
-      return ctx.response.status(403).send({error: 'Autores Inválidos'})
+    if (authorsIds.length === 0) {
+      return ctx.response.status(403).send({ error: 'Autores Inválidos' })
     }
 
     //compare auth email with authors student email to check if user is correct
@@ -114,12 +120,12 @@ export default class TccsController {
       return ctx.response.status(401).send({ error: 'Autor não foi encontrado' })
     }
     const tcc = await Tcc.create(tccJson)
-    if(tcc === null){
-      return ctx.response.status(401).send({error: 'Tcc não foi criado'})
+    if (tcc === null) {
+      return ctx.response.status(401).send({ error: 'Tcc não foi criado' })
     }
     await tcc.related('professor').associate(professor)
     await tcc.related('students').saveMany(students)
-    await students.forEach(async (student) => await student.related('tcc').associate(tcc)) 
+    await students.forEach(async (student) => await student.related('tcc').associate(tcc))
     await tcc.related('researchArea').associate(researchArea)
 
     console.log(tcc.id, tcc.title)
