@@ -13,6 +13,7 @@ import {
 } from '@ioc:Adonis/Lucid/Orm'
 import Student from './Student'
 import ResearchArea from './ResearchArea'
+import Professor from './Professor'
 
 export default class Proposal extends BaseModel {
   @column({ isPrimary: true })
@@ -29,4 +30,7 @@ export default class Proposal extends BaseModel {
 
   @hasOne(() => ResearchArea)
   public research_area: HasOne<typeof ResearchArea>
+
+  @belongsTo(() => Professor)
+  public professor: BelongsTo<typeof Professor>
 }
