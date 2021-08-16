@@ -35,7 +35,7 @@ async function setupList(tccList) {
 
 function cleanList() {
   const listElement = document.getElementsByTagName('ul')[0]
-  const tccs = listElement.children.slice()
+  const tccs = Array(...listElement.children)
   tccs.forEach((li) => li.remove())
 }
 

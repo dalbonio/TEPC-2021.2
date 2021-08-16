@@ -16,10 +16,20 @@ async function detailTcc() {
   document.getElementById('authors').innerHTML = `<strong>${responseData.author}</strong> Sob orientação de ${responseData.professor}`
   document.getElementById('resumo').innerText = responseData.resumo
   document.getElementById('abstract').innerText = responseData.abstract
-  document.getElementById('download').addEventListener('click', () => {
-    document.location.href = `/api/downloadTcc/${id}`
+  document.getElementById('download').addEventListener('click', async () => {
+    saveData(`/api/downloadTcc/${id}`, responseData.fileName)
   })
+}
 
+function saveData(url, fileName) {
+  var a = document.createElement('a')
+  document.body.appendChild(a)
+  a.style = 'display: none'
+  // var url = URL.createObjectURL(blob)
+  a.href = url
+  a.download = fileName
+  a.click()
+  URL.revokeObjectURL(url)
 }
 
 document.addEventListener('DOMContentLoaded', detailTcc)
