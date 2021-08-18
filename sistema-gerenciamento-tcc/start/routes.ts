@@ -20,7 +20,9 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 import ResearchArea from 'App/Models/ResearchArea'
+import Proposal from 'App/Models/Proposal'
 import User from '../app/Models/User'
+import Professor from 'App/Models/Professor'
 
 Route.get('/', async ({ response }) => {
   response.redirect('/listarTrabalhos')
@@ -49,7 +51,8 @@ Route.get('/alterarTrabalho', async ({ view }) => {
 }).middleware(['webAuth', 'auth', 'userRole'])
 
 Route.get('/cadastrarProposta', async ({ view }) => {
-  return view.render('cadastrar_proposta')
+  let researchAreas = (await ResearchArea.all()).map((ra) => ra.serialize())
+  return view.render('cadastrar_proposta', { researchAreas: researchAreas })
 }).middleware(['webAuth', 'auth', 'userRole'])
 
 Route.get('/rejeitarSubmissao', async ({ view }) => {
@@ -65,7 +68,16 @@ Route.get('/aprovacoesPendentes', async ({ view }) => {
 }).middleware(['webAuth', 'auth', 'userRole'])
 
 Route.get('/listarPropostas', async ({ view }) => {
-  return view.render('listar_propostas')
+  let researchAreas = (await ResearchArea.all()).map((ra) => ra.serialize())
+  let proposals = await (await Proposal.query().preload('professor')).map( (ra) => ra.serialize()).
+    filter( (prop) => prop.professor !== null)
+  console.log(proposals)
+  for(var i = 0; i < proposals.length; i++){
+    let user = await User.find(proposals[i].professor.user_id)
+    proposals[i].professor.name = user?.name;
+  }
+
+  return view.render('listar_propostas', { researchAreas: researchAreas, proposals: proposals })
 }).middleware(['webAuth', 'auth', 'userRole'])
 
 Route.get('/listarTrabalhos', async ({ view }) => {
@@ -96,6 +108,8 @@ Route.post('/api/logout', async ({ auth }) => {
 })
 
 Route.post('/api/createStudent', 'StudentsController.create')
+
+Route.post('/api/createProposal', 'ProposalsController.create')
 
 Route.group(() => {
   Route.post('createTcc', 'TccsController.create')

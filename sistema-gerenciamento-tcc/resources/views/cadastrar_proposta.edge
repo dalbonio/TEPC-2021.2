@@ -19,6 +19,7 @@
         </dialog>
 
         <section class="main elevated1">
+        <form action={{ route('/api/createProposal')}} method="POST">
             <h1>Cadastrar Proposta de Trabalho</h1>
             <p class="paragraph1 low-emph">
                 Preencha todos os campos obrigatórios e clique "Enviar".
@@ -27,26 +28,29 @@
             <hr>
             <fieldset>
                 <label for="input">Título</label>
-                <input type="text" name="input" id="input" placeholder="Insira o título">
+                <input type="textarea" name="title" id="input" placeholder="Insira o título">
             </fieldset>
 
             <fieldset>
-                <label for="select">Área de Pesquisa</label>
-                <select name="select" id="select" placeholder="Selecione a área de pesquisa">
-                    <option value="1">Engenharia de Software</option>
-                    <option value="2">Grafos e Combinatória</option>
-                    <option value="3">Inteligência Artificial</option>
+                <label for="research_area">Área de Pesquisa</label>
+                <select name="research_area" id="research_area" placeholder="Selecione a área de pesquisa">
+                    @each(item in researchAreas)
+                        <option value={{item.id}}>{{item.name}}</option>
+                    @end
                 </select>
             </fieldset>
 
+            <input type="hidden" id="professor" name="professor" value="Filipe Braida">
+
             <fieldset>
                 <label for="area">Descrição</label>
-                <textarea name="area" id="area" placeholder="Insira aqui a descrição"></textarea>
+                <input type="textarea" name="descricao" id="area" placeholder="Insira aqui a descrição">
             </fieldset>
 
             <div class="enviarForm">
-                <button class="raised">Enviar</button>
+                <button type="submit" class="raised">Enviar</button>
             </div>
+        </form>
         </section>
 
         <script>
