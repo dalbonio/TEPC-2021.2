@@ -28,9 +28,21 @@ export default class Proposal extends BaseModel {
   @manyToMany(() => Student)
   public students: ManyToMany<typeof Student>
 
-  @hasOne(() => ResearchArea)
-  public research_area: HasOne<typeof ResearchArea>
+  @belongsTo(() => ResearchArea)
+  public researchArea: BelongsTo<typeof ResearchArea>
 
   @belongsTo(() => Professor)
   public professor: BelongsTo<typeof Professor>
+
+  @column()
+  public professorId: number
+
+  @column()
+  public description: String
+
+  @column()
+  public title: String
+
+  @column()
+  public researchAreaId: number
 }

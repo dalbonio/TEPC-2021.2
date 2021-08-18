@@ -50,7 +50,7 @@ export default class ProposalsController {
     const researchAreaId = ctx.request.input('research_area')
     const proposalJson = {
       title: ctx.request.input('title'),
-      resumo: ctx.request.input('resumo'),
+      description: ctx.request.input('descricao'),
     }
 
     console.log("Entrou no controller")
@@ -58,8 +58,13 @@ export default class ProposalsController {
     console.log(researchAreaId)
     console.log(professorName)
 
+    console.log(await User.all())
     //compare auth email with authors student email to check if user is correct
     const professorUser = await User.query().where('name', 'LIKE', '%' + professorName + '%')
+    if (professorUser.length === 0) {
+      return ctx.response.status(401).send({ error: 'Professor não foi encontrado' })
+    }
+
     const researchArea = await ResearchArea.find(researchAreaId)
     if (researchArea === null) {
       return ctx.response.status(401).send({ error: 'Area de pesquisa não foi encontrada' })
@@ -75,19 +80,22 @@ export default class ProposalsController {
     if(proposal === null){
       return ctx.response.status(401).send({error: 'Tcc não foi criado'})
     }
-    await proposal.related('professor').associate(professor)
-    await tcc.related('students').saveMany(students)
-    await students.forEach(async (student) => await student.related('tcc').associate(tcc)) 
-    await tcc.related('researchArea').associate(researchArea)
 
-    console.log(tcc.id, tcc.title)
-    console.log(students.length)
+    await proposal.related('professor').associate(professor)
+    await proposal.related('researchArea').associate(researchArea)
+
+    console.log(proposal.id, proposal.title)
 
     return ctx.response.status(200).send({
-      tcc: tcc,
-      students: students,
+      proposal: proposal,
       researchArea: researchArea,
       professor: professor,
     })
+  }
+
+  public async destroy(ctx: HttpContextContract) {
+    const id = ctx.request.input('id', 1)
+    const user = await Proposal.findOrFail(id)
+    await user.delete();
   }
 }

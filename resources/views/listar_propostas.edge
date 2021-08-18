@@ -15,41 +15,19 @@
                 Listagem das propostas de Trabalhos de Conclusão de Curso submetidas pelos professores do Curso de Ciência da Computação, caso tenha intersse em alguma proposta indique seu interesse ao professor responsável.
             </p>
 
+            @each(proposal in proposals)
             <div class="card">
                 <div class="description">
-                    <span class="overline">Engenharia de Software</span>
-                    <span class="title">Estudo Sobre a Adoção de Práticas Ágeis nas Corporações</span>
-                    <span class="text">Professor Cheio de Ideias</span>
+                    <span class="overline">{{proposal.researchArea}}</span>
+                    <span class="title">{{proposal.title}}</span>
+                    <span class="text">Criado por {{proposal.professor.name}}</span>
                 </div>
-                <p class="paragraph2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p class="paragraph2">{{proposal.description}}</p>
                 <div class="action">
                     <button class="text">Manifestar Interesse</button>
                 </div>
             </div>
-
-            <div class="card">
-                <div class="description">
-                    <span class="overline">Algoritmos e Combinatória</span>
-                    <span class="title">Uma Nova Heurística Para o TSP</span>
-                    <span class="text">Professor Incrivelmente Dedicado</span>
-                </div>
-                <p class="paragraph2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <div class="action">
-                    <button class="text">Manifestar Interesse</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="description">
-                    <span class="overline">Computação de Alta Performance</span>
-                    <span class="title">Paralelizando Particle Swarm Optimization em GPU</span>
-                    <span class="text">Professora Mirabolante</span>
-                </div>
-                <p class="paragraph2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <div class="action">
-                    <button class="text">Manifestar Interesse</button>
-                </div>
-            </div>
+            @end
 
             <div class="pagination">
                 <a href="#" class="unavailable"><span class="material-icons">first_page</span></a>
