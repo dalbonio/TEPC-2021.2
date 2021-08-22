@@ -7,20 +7,14 @@ import Proposal from 'App/Models/Proposal'
 
 export default class ProposalsController {
   public async index(ctx: HttpContextContract) {
-    const page = ctx.request.input('page', 1)
-    const field = ctx.request.input('field', 0)
-    console.log(field)
-    const limit = 10
     const proposals = await (Database.query()
       .from('proposals')
       .join('professors', 'proposals.professor_id', 'professors.id')
       .join('users as pu', 'professors.user_id', 'pu.id')
-      .join('research_areas', 'tccs.research_area_id', 'research_areas.id')
+      .join('research_areas', 'proposals.research_area_id', 'research_areas.id')
       .select('proposals.*')
       .select('pu.name as professor')
-      .select('research_areas.name as research_area')
-      .if( field !== 0, (query) => query.where('research_areas.id', field))
-      .paginate(page, limit))
+      .select('research_areas.name as research_area'))
 
     console.log(proposals.length)
     return proposals
@@ -86,13 +80,13 @@ export default class ProposalsController {
     await proposal.related('professor').associate(professor)
     await proposal.related('researchArea').associate(researchArea)
 
-    console.log(proposal.id, proposal.title)
+    return ctx.response.redirect('/listarPropostas')
 
-    return ctx.response.status(200).send({
+    /*return ctx.response.status(200).send({
       proposal: proposal,
       researchArea: researchArea,
       professor: professor,
-    })
+    })*/
   }
 
   public async destroy(ctx: HttpContextContract) {
