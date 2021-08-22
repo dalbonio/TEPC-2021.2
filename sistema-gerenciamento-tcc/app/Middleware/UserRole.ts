@@ -8,11 +8,12 @@ export default class UserRole {
     if (auth.user) {
       const id = auth.user.id
       const isCoordinator = Coordinator.findBy('user_id', id)
+      console.log(isCoordinator)
       const isProfessor = Professor.findBy('user_id', id)
 
       if ((await isCoordinator) !== null) auth.user.role = 'coordinator'
       else if ((await isProfessor) !== null) auth.user.role = 'professor'
-      auth.user.role = 'student'
+      else auth.user.role = 'student'
     } else {
       return response.forbidden()
     }

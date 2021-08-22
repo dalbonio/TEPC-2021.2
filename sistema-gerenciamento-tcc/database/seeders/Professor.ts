@@ -22,8 +22,11 @@ export default class ProfessorSeeder extends BaseSeeder {
       },
     ])
 
-    //professors doesnt need any parameter in creation
-    const professors = await Professor.createMany(Array(users.length).fill({}))
+    const professors = await Professor.createMany([
+      { userId: users[0].id },
+      { userId: users[1].id },
+      { userId: users[2].id },
+    ])
 
     professors.forEach((professor, index) => professor.related('user').associate(users[index]))
   }

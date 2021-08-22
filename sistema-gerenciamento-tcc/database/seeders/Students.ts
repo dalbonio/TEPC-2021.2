@@ -11,14 +11,22 @@ export default class ProfessorSeeder extends BaseSeeder {
         password: 'senha',
       },
       {
-        name: 'Bruno',
+        name: 'Bruno Benicio',
         email: 'bruno@email.com',
+        password: 'senha',
+      },
+      {
+        name: 'Natalia Zambe',
+        email: 'natalia@email.com',
         password: 'senha',
       },
     ])
 
-    //professors doesnt need any parameter in creation
-    const students = await Student.createMany(Array(users.length).fill({registrationNumber: 2017781458}))
+    const students = await Student.createMany([
+      { userId: users[0].id, registrationNumber: '2017781458' },
+      { userId: users[1].id, registrationNumber: '2017780063' },
+      { userId: users[2].id, registrationNumber: '2018780288' },
+    ])
 
     students.forEach((student, index) => student.related('user').associate(users[index]))
   }
