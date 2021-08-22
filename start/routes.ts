@@ -67,7 +67,7 @@ Route.get('/aprovacoesPendentes', async ({ view }) => {
 
 Route.get('/listarPropostas', async ({ view }) => {
   let researchAreas = (await ResearchArea.all()).map((ra) => ra.serialize())
-  let proposals = await (await Proposal.query().preload('professor')).map((ra) => ra.serialize()).
+  let proposals = (await Proposal.query().preload('professor')).map((ra) => ra.serialize()).
     filter((prop) => prop.professor !== null)
   console.log(proposals)
   for (var i = 0; i < proposals.length; i++) {
@@ -107,7 +107,7 @@ Route.post('/api/logout', async ({ auth }) => {
 
 Route.post('/api/createStudent', 'StudentsController.create')
 
-Route.post('/api/createProposal', 'ProposalsController.create')
+Route.post('/api/createProposal', 'ProposalsController.create').middleware(['auth', 'userRole'])
 
 Route.group(() => {
   Route.post('createTcc', 'TccsController.create')
