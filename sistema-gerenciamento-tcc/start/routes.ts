@@ -41,7 +41,6 @@ Route.get('/recuperarSenha', async ({ view }) => {
 
 Route.get('/enviarTrabalho', async ({ view }) => {
   let researchAreas = await ResearchArea.all()
-  console.log(researchAreas)
   return view.render('enviar_trabalho', { researchAreas: researchAreas })
 }).middleware(['webAuth', 'auth', 'userRole'])
 
@@ -90,7 +89,7 @@ Route.post('/api/login', async ({ auth, request, response }) => {
   const email = request.input('email')
   const password = request.input('password')
   const user = await User.findBy('email', email)
-  console.log(`email: ${email}, password: ${password}, user: ${user}`)
+  console.log(`email: ${email}, user: ${user}`)
   try {
     const token = await auth.use('api').attempt(email, password)
     return { user: user, token: token }

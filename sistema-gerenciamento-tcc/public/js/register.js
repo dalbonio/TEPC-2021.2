@@ -41,7 +41,6 @@ async function register() {
         null
       )
     } else {
-      console.log(res.body)
       openDialog(
         'Cadastro realizado com sucesso',
         'Por favor efetue o login, você será redirecionado automaticamente',
