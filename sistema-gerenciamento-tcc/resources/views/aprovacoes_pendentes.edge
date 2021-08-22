@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Gerenciamento de TCC</title>
+    <title>Sistema de Gerenciamento de TCC - Aprovação Pendente</title>
     @include('links')
+    <script>const id = {{request.input('tcc')}}</script>
+    <script src="/js/detailTcc.js"></script>
+    <script src="/js/pending.js"></script>
 </head>
 
 <body>
@@ -18,8 +21,6 @@
             descritos. Caso haja alguma inconformidade comunique ao discente para que o mesmo a retifique.
             Caso a submissão esteja conforme os padrões, aprove e o trabalho será disponibilizado para acesso de todos.
         </p>
-
-
 
         <ul class="ps-0">
             <li class="px-0 pt-4 border-light">
@@ -59,19 +60,15 @@
                         </div>
                         <div class="col-md-3"></div>
                         <div class="col-md-3 px-md-2">
-                            <button class="outlined w-100">REJEITAR</button>
+                            <button class="outlined w-100" onclick="reject()">REJEITAR</button>
                         </div>
                         <div class="col-md-3 px-md-2">
-                            <button class="raised w-100">APROVAR</button>
+                            <button class="raised w-100" onclick="approve()">APROVAR</button>
                         </div>
                     </div>
                 </div>
-                </div>
             </li>
         </ul>
-
-        </div>
     </section>
 </body>
-
 </html>

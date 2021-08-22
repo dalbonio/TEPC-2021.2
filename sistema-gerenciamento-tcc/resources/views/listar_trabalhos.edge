@@ -9,8 +9,15 @@
 
         <script>
             const currentPage = {{ request.input('page', 1) }}
+            
             let currentQuery = ''
             let currentField = ''
+            @if (auth.user.role === 'coordinator')
+                const viewPending = true
+                const detailURL = 'aprovacoesPendentes'
+            @else
+                const detailURL = 'verTrabalho'
+            @endif
         </script>
         <script src="/js/pagination.js"></script>
         <script src="/js/tccListItem.js"></script>

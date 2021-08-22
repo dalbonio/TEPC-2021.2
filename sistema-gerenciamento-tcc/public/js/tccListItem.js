@@ -28,7 +28,7 @@ function makeTccListItem(researchArea, title, authors, professor, id) {
   const openButton = document.createElement('button')
   openButton.className = 'text'
   openButton.addEventListener('click', () => {
-    document.location.href = `/verTrabalho?tcc=${id}`
+    document.location.href = `/${detailURL}?tcc=${id}`
   })
   actionDiv.appendChild(openButton)
 

@@ -48,12 +48,26 @@ Route.get('/alterarTrabalho', async ({ view }) => {
   return view.render('alterar_trabalho')
 }).middleware(['webAuth', 'auth', 'userRole'])
 
-Route.get('/cadastrarProposta', async ({ view }) => {
+Route.get('/cadastrarProposta', async ({ auth, view, response }) => {
+  if (auth.user?.role !== 'professor') {
+    return response.unauthorized()
+  }
   let researchAreas = (await ResearchArea.all()).map((ra) => ra.serialize())
   return view.render('cadastrar_proposta', { researchAreas: researchAreas })
 }).middleware(['webAuth', 'auth', 'userRole'])
 
-Route.get('/rejeitarSubmissao', async ({ view }) => {
+Route.post('/cadastrarProposta', async ({ auth, view, response }) => {
+  if (auth.user?.role !== 'professor') {
+    return response.unauthorized()
+  }
+  let researchAreas = (await ResearchArea.all()).map((ra) => ra.serialize())
+  return view.render('cadastrar_proposta', { researchAreas: researchAreas })
+}).middleware(['webAuth', 'auth', 'userRole'])
+
+Route.get('/rejeitarSubmissao', async ({ auth, view, response }) => {
+  if (auth.user?.role !== 'coordinator') {
+    return response.unauthorized()
+  }
   return view.render('rejeitar_submissao')
 }).middleware(['webAuth', 'auth', 'userRole'])
 
@@ -61,16 +75,24 @@ Route.get('/verTrabalho', async ({ view }) => {
   return view.render('ver_trabalho')
 }).middleware(['webAuth', 'auth', 'userRole'])
 
-Route.get('/aprovacoesPendentes', async ({ view }) => {
+Route.get('/aprovacoesPendentes', async ({ auth, view, response }) => {
+  if (auth.user?.role !== 'coordinator') {
+    return response.unauthorized()
+  }
   return view.render('aprovacoes_pendentes')
 }).middleware(['webAuth', 'auth', 'userRole'])
 
 Route.get('/listarPropostas', async ({ view }) => {
   let researchAreas = (await ResearchArea.all()).map((ra) => ra.serialize())
-  let proposals = (await Proposal.query().preload('professor')).map((ra) => ra.serialize()).
-    filter((prop) => prop.professor !== null)
+  let proposals = (await Proposal.query().preload('professor'))
+    .map((prop) => prop.serialize())
+    .filter((prop) => prop.professor !== null)
+
   console.log(proposals)
   for (var i = 0; i < proposals.length; i++) {
+    proposals[i].researchArea = researchAreas.find(
+      (v) => v.id === proposals[i].research_area_id
+    )?.name
     let user = await User.find(proposals[i].professor.user_id)
     proposals[i].professor.name = user?.name
   }
@@ -107,7 +129,9 @@ Route.post('/api/logout', async ({ auth }) => {
 
 Route.post('/api/createStudent', 'StudentsController.create')
 
-Route.post('/api/createProposal', 'ProposalsController.create').middleware(['auth', 'userRole'])
+Route.post('/api/createProposal', 'ProposalsController.create').middleware(['webAuth', 'auth', 'userRole'])
+Route.delete('/api/deleteTcc/:id', 'TccsController.destroy').middleware(['auth', 'userRole'])
+Route.put('/api/approveTcc/:id', 'TccsController.approve').middleware(['auth', 'userRole'])
 
 Route.group(() => {
   Route.post('createTcc', 'TccsController.create')

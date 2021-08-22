@@ -7,11 +7,13 @@ async function loadTccs() {
   const pageParam = currentPage !== 1 ? `page=${currentPage}` : ''
   const queryParam = currentQuery.length > 0 ? `query=${encodeURI(currentQuery)}` : ''
   const fieldParam = currentField.length > 0 ? `field=${encodeURI(currentField)}` : ''
+  const hiddenParam = viewPending ? `pending=true` : ''
 
   let params = '?'
   if (pageParam.length > 0) params += pageParam + '&'
   if (queryParam.length > 0) params += queryParam + '&'
   if (fieldParam.length > 0) params += fieldParam + '&'
+  if (hiddenParam.length > 0) params += hiddenParam + '&'
   params = params.slice(0, -1)
 
   const res = await fetch(`/api/listTcc${params}`, {

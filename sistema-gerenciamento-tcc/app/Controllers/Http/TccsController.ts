@@ -12,6 +12,7 @@ export default class TccsController {
     const page = ctx.request.input('page', 1)
     const field = ctx.request.input('field', 0)
     const search = ctx.request.input('query', '')
+    const accepted = !ctx.request.input('pending', false)
 
     const limit = 10
     const tccsList = await (Database.query()
@@ -25,6 +26,7 @@ export default class TccsController {
       .select('su.name as author')
       .select('pu.name as professor')
       .select('research_areas.name as research_area')
+      .where('tccs.accepted', accepted)
       .if(field !== 0, (query) => query.where('research_areas.id', field))
       .if(search !== '', (query) => {
         query
@@ -209,5 +211,30 @@ export default class TccsController {
       researchArea: researchArea,
       professor: professor,
     })
+  }
+
+  public async destroy({ auth, request, response }) {
+    if (auth.user.role !== 'coordinator') {
+      return response.unauthorized()
+    }
+
+    const id = request.param('id', 1)
+    const tcc = await Tcc.findOrFail(id)
+    await tcc.delete()
+
+    return response.ok('Rejeitado')
+  }
+
+  public async approve({ auth, request, response }) {
+    if (auth.user.role !== 'coordinator') {
+      return response.unauthorized()
+    }
+
+    const id = request.param('id', 1)
+    const tcc = await Tcc.findOrFail(id)
+    tcc.accepted = true
+    await tcc.save()
+
+    return response.ok('Aprovado')
   }
 }
