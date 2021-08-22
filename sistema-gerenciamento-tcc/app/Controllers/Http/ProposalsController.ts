@@ -6,7 +6,7 @@ import User from 'App/Models/User'
 import Proposal from 'App/Models/Proposal'
 
 export default class ProposalsController {
-  public async index(ctx: HttpContextContract) {
+  public async index() {
     const proposals = await (Database.query()
       .from('proposals')
       .join('professors', 'proposals.professor_id', 'professors.id')
@@ -16,7 +16,6 @@ export default class ProposalsController {
       .select('pu.name as professor')
       .select('research_areas.name as research_area'))
 
-    console.log(proposals.length)
     return proposals
   }
 
@@ -49,12 +48,6 @@ export default class ProposalsController {
       description: ctx.request.input('descricao'),
     }
 
-    console.log('Entrou no controller')
-    console.log(proposalJson)
-    console.log(researchAreaId)
-    console.log(professorName)
-
-    console.log(await User.all())
     //compare auth email with authors student email to check if user is correct
     const professorUser = await User.query().where('name', 'LIKE', '%' + professorName + '%')
     if (professorUser.length === 0) {

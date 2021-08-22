@@ -88,7 +88,6 @@ Route.get('/listarPropostas', async ({ view }) => {
     .map((prop) => prop.serialize())
     .filter((prop) => prop.professor !== null)
 
-  console.log(proposals)
   for (var i = 0; i < proposals.length; i++) {
     proposals[i].researchArea = researchAreas.find(
       (v) => v.id === proposals[i].research_area_id
@@ -111,7 +110,7 @@ Route.post('/api/login', async ({ auth, request, response }) => {
   const email = request.input('email')
   const password = request.input('password')
   const user = await User.findBy('email', email)
-  console.log(`email: ${email}, user: ${user}`)
+
   try {
     const token = await auth.use('api').attempt(email, password)
     return { user: user, token: token }
