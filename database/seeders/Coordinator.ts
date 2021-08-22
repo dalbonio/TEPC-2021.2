@@ -11,7 +11,7 @@ export default class CoordinatorSeeder extends BaseSeeder {
       password: 'senha',
     })
     //professors doesnt need any parameter in creation
-    const coordinator = await Coordinator.create({})
+    const coordinator = await Coordinator.create({ userId: user.id })
 
     coordinator.related('user').associate(user)
   }
