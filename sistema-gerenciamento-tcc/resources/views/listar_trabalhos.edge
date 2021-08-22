@@ -12,6 +12,7 @@
             let currentQuery = ''
             let currentField = ''
         </script>
+        <script src="/js/pagination.js"></script>
         <script src="/js/tccListItem.js"></script>
         <script src="/js/listTcc.js"></script>
     </head>
@@ -37,11 +38,6 @@
                             @each(field in research_areas)
                                 <option value="{{field.id}}">{{field.name}}</option>
                             @endeach
-                            {{--<option value="software_engeneering">Engenharia de Software</option>
-                            <option value="artifitial_intelligence">Inteligência Artificial</option>
-                            <option value="machine_learning">Aprendizado de Máquina</option>
-                            <option value="high_performace_computing">Computação de Alta Performace</option>
-                            <option value="algorithms_and_combinatorics">Algoritmos e Combinatória</option>--}}
                         </select>
                     </fieldset>
                 </div>
