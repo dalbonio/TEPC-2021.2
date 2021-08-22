@@ -44,6 +44,10 @@ export default class ProposalsController {
   }
 
   public async create(ctx: HttpContextContract) {
+    if (ctx.auth.user?.role !== 'professor') {
+      return ctx.response.unauthorized({ error: 'Apenas professores podem criar propostas' })
+    }
+
     const professorName = ctx.request.input('professor')
     const researchAreaId = ctx.request.input('research_area')
     const proposalJson = {
@@ -51,7 +55,7 @@ export default class ProposalsController {
       description: ctx.request.input('descricao'),
     }
 
-    console.log("Entrou no controller")
+    console.log('Entrou no controller')
     console.log(proposalJson)
     console.log(researchAreaId)
     console.log(professorName)
@@ -73,10 +77,10 @@ export default class ProposalsController {
     if (professor === null) {
       return ctx.response.status(401).send({ error: 'Professor não foi encontrado' })
     }
-  
+
     const proposal = await Proposal.create(proposalJson)
-    if(proposal === null){
-      return ctx.response.status(401).send({error: 'Tcc não foi criado'})
+    if (proposal === null) {
+      return ctx.response.status(401).send({ error: 'Tcc não foi criado' })
     }
 
     await proposal.related('professor').associate(professor)
@@ -94,6 +98,6 @@ export default class ProposalsController {
   public async destroy(ctx: HttpContextContract) {
     const id = ctx.request.input('id', 1)
     const user = await Proposal.findOrFail(id)
-    await user.delete();
+    await user.delete()
   }
 }
