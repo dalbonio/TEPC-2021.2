@@ -1,6 +1,5 @@
 import User from 'App/Models/User'
 import test from 'japa'
-import { JSDOM } from 'jsdom'
 import supertest from 'supertest'
 import Database from '@ioc:Adonis/Lucid/Database'
 
@@ -19,9 +18,8 @@ test.group('Login', (group) => {
     /**
      * Make request
      */
-    let userCreated
     if ((await User.findBy('email', 'example@email.com')) === null) {
-      userCreated = await User.create({
+      await User.create({
         email: 'example@email.com',
         password: 'senha',
         name: 'Teste',

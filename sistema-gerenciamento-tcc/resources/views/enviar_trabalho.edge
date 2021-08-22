@@ -10,15 +10,6 @@
     </head>
     <body>
         @include('header')
-        <dialog class="elevated2">
-            <h2>Título do Dialog</h2>
-            <p class="paragraph1 low-emph">
-                Texto do Dialog com cada vez mais palavras escritas para tentar forçar uma quebra de linha. Espero que isto seja o suficiente.
-            </p>
-            <button onclick="closeDialog()" class="raised">Positivo</button>
-            <button onclick="closeDialog()" class="text">Negativo</button>
-        </dialog>
-
         <section class="main elevated1">
             <h1>Enviar Trabalho de conclusão de curso</h1>
             <p class="paragraph1 low-emph">
@@ -48,10 +39,7 @@
                 <select name="select" id="research-area" placeholder="Selecione a área de pesquisa">
                     @each(item in researchAreas)
                         <option value={{item.id}}>{{item.name}}</option>
-                    @end
-                    {{--  <option value="Engenharia de Software">Engenharia de Software</option>
-                    <option value="Grafos e Combinatória">Grafos e Combinatória</option>
-                    <option value="Inteligência Artificial">Inteligência Artificial</option>  --}}
+                    @endeach
                 </select>
             </fieldset>
 
@@ -79,17 +67,5 @@
                 <button class="raised" onclick="send_tcc()">Enviar</button>
             </div>
         </section>
-
-        <script>
-            function openDialog() {
-                let dialog = document.querySelector('dialog');
-                dialog.showModal();
-            }
-
-            function closeDialog() {
-                let dialog = document.querySelector('dialog');
-                dialog.close();
-            }
-        </script>
     </body>
 </html>

@@ -9,15 +9,6 @@
     </head>
     <body>
         @include('header')
-        <dialog class="elevated2">
-            <h2>Título do Dialog</h2>
-            <p class="paragraph1 low-emph">
-                Texto do Dialog com cada vez mais palavras escritas para tentar forçar uma quebra de linha. Espero que isto seja o suficiente.
-            </p>
-            <button onclick="closeDialog()" class="raised">Positivo</button>
-            <button onclick="closeDialog()" class="text">Negativo</button>
-        </dialog>
-
         <section class="main elevated1">
         <form action={{ route('/api/createProposal')}} method="POST">
             <h1>Cadastrar Proposta de Trabalho</h1>
@@ -36,11 +27,11 @@
                 <select name="research_area" id="research_area" placeholder="Selecione a área de pesquisa">
                     @each(item in researchAreas)
                         <option value={{item.id}}>{{item.name}}</option>
-                    @end
+                    @endeach
                 </select>
             </fieldset>
 
-            <input type="hidden" id="professor" name="professor" value="Filipe Braida">
+            <input type="hidden" id="professor" name="professor" value="{{auth.user.name}}">
 
             <fieldset>
                 <label for="area">Descrição</label>
@@ -52,17 +43,5 @@
             </div>
         </form>
         </section>
-
-        <script>
-            function openDialog() {
-                let dialog = document.querySelector('dialog');
-                dialog.showModal();
-            }
-
-            function closeDialog() {
-                let dialog = document.querySelector('dialog');
-                dialog.close();
-            }
-        </script>
     </body>
 </html>

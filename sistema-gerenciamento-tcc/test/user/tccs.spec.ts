@@ -1,11 +1,6 @@
-import User from 'App/Models/User'
-import Student from 'App/Models/Student'
 import test from 'japa'
-import { JSDOM } from 'jsdom'
 import supertest from 'supertest'
 import Database from '@ioc:Adonis/Lucid/Database'
-import AssetsManager from '@ioc:Adonis/Core/AssetsManager'
-import Tcc from 'App/Models/Tcc'
 
 const BASE_URL = `http://${process.env.HOST}:${process.env.PORT}`
 
@@ -18,7 +13,7 @@ test.group('Tccs', (group) => {
     await Database.rollbackGlobalTransaction()
   })
 
-  test('tcc is being created', async (assert) => {
+  test('tcc is being created', async () => {
     /**
      * Make request
      */
@@ -39,7 +34,7 @@ test.group('Tccs', (group) => {
       filename: 'Lorem',
       file: 'Loren',
     }
-    const tccRes = await supertest(BASE_URL).post('/api/createTcc').send(tccJson).expect(200)
+    await supertest(BASE_URL).post('/api/createTcc').send(tccJson).expect(200)
   })
 
   test('tcc is being listed', async (assert) => {
@@ -62,7 +57,7 @@ test.group('Tccs', (group) => {
       filename: 'Lorem',
       file: 'Loren',
     }
-    const tccRes = await supertest(BASE_URL).post('/api/createTcc').send(tccJson).expect(200)
+    await supertest(BASE_URL).post('/api/createTcc').send(tccJson).expect(200)
 
     // list tcc
     const listRes = await supertest(BASE_URL).get('/api/listTcc').expect(200)

@@ -2,10 +2,6 @@ import { DateTime } from 'luxon'
 import {
   BaseModel,
   column,
-  hasOne,
-  HasOne,
-  hasMany,
-  HasMany,
   belongsTo,
   BelongsTo,
   manyToMany,

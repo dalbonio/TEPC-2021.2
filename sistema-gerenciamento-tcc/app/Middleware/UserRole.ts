@@ -1,7 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Coordinator from 'App/Models/Coordinator'
 import Professor from 'App/Models/Professor'
-import Student from 'App/Models/Student'
 
 export default class UserRole {
   public async handle({ auth, response }: HttpContextContract, next: () => Promise<void>) {
