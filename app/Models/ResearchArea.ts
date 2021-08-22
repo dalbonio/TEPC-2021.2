@@ -1,16 +1,5 @@
 import { DateTime } from 'luxon'
-import {
-  BaseModel,
-  column,
-  hasOne,
-  HasOne,
-  hasMany,
-  HasMany,
-  belongsTo,
-  BelongsTo,
-  manyToMany,
-  ManyToMany,
-} from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import Tcc from './Tcc'
 
 export default class ResearchArea extends BaseModel {

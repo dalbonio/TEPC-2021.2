@@ -2,8 +2,6 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Professor from 'App/Models/Professor'
 import ResearchArea from 'App/Models/ResearchArea'
-import Student from 'App/Models/Student'
-import Tcc from 'App/Models/Proposal'
 import User from 'App/Models/User'
 import Proposal from 'App/Models/Proposal'
 

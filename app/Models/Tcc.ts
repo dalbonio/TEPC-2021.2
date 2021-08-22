@@ -1,16 +1,5 @@
 import { DateTime } from 'luxon'
-import {
-  BaseModel,
-  column,
-  hasOne,
-  HasOne,
-  hasMany,
-  HasMany,
-  belongsTo,
-  BelongsTo,
-  manyToMany,
-  ManyToMany,
-} from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasMany, HasMany, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 import Student from './Student'
 import Professor from './Professor'
 import ResearchArea from './ResearchArea'
@@ -38,7 +27,7 @@ export default class Tcc extends BaseModel {
   public filename: string
 
   @column()
-  public file_content: BinaryType
+  public file_content: ArrayBuffer
 
   @hasMany(() => Student)
   public students: HasMany<typeof Student>

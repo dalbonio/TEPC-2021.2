@@ -1,10 +1,6 @@
-import User from 'App/Models/User'
-import Student from 'App/Models/Student'
 import test from 'japa'
-import { JSDOM } from 'jsdom'
 import supertest from 'supertest'
 import Database from '@ioc:Adonis/Lucid/Database'
-import AssetsManager from '@ioc:Adonis/Core/AssetsManager'
 
 const BASE_URL = `http://${process.env.HOST}:${process.env.PORT}`
 
