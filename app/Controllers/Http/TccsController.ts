@@ -11,7 +11,8 @@ export default class TccsController {
   public async index(ctx: HttpContextContract) {
     const page = ctx.request.input('page', 1)
     const field = ctx.request.input('field', 0)
-    console.log(field)
+    const search = ctx.request.input('query', '')
+
     const limit = 10
     const tccsList = await (Database.query()
       .from('tccs')
@@ -20,14 +21,19 @@ export default class TccsController {
       .join('users as su', 'students.user_id', 'su.id')
       .join('users as pu', 'professors.user_id', 'pu.id')
       .join('research_areas', 'tccs.research_area_id', 'research_areas.id')
-      .select('tccs.*')
+      .select('tccs.id', 'tccs.title', 'tccs.resumo', 'tccs.abstract', 'tccs.accepted')
       .select('su.name as author')
       .select('pu.name as professor')
       .select('research_areas.name as research_area')
       .if(field !== 0, (query) => query.where('research_areas.id', field))
+      .if(search !== '', (query) => {
+        query
+          .where('tccs.title', 'like', `%${search}%`)
+          .orWhere('su.name', 'like', `%${search}%`)
+          .orWhere('pu.name', 'like', `%${search}%`)
+      })
       .paginate(page, limit))
 
-    console.log(tccsList.length)
     return tccsList
   }
 
@@ -82,22 +88,13 @@ export default class TccsController {
       accepted: false,
     }
 
-    console.log('Entrou no controller')
-    console.log(tccJson)
-    console.log(authors)
-    console.log(researchAreaId)
-    console.log(professorName)
-
     let allStudents = await Student.query().preload('user')
     let studentsDict = {}
     for (let i = 0; i < allStudents.length; i++) {
       studentsDict[allStudents[i].user.name] = allStudents[i].id
     }
     authors = authors.split(',').map((el) => el.trim())
-    console.log(authors)
     const authorsIds = authors.map((author) => studentsDict[author]).filter((el) => el != null)
-    console.log(studentsDict)
-    console.log(authorsIds)
 
     if (authorsIds.length === 0) {
       return ctx.response.status(403).send({ error: 'Autores Inválidos' })
@@ -125,11 +122,9 @@ export default class TccsController {
     }
     await tcc.related('professor').associate(professor)
     await tcc.related('students').saveMany(students)
-    await students.forEach(async (student) => await student.related('tcc').associate(tcc))
-    await tcc.related('researchArea').associate(researchArea)
 
-    console.log(tcc.id, tcc.title)
-    console.log(students.length)
+    students.forEach(async (student) => await student.related('tcc').associate(tcc))
+    await tcc.related('researchArea').associate(researchArea)
 
     return ctx.response.status(200).send({
       tcc: tcc,
@@ -142,17 +137,17 @@ export default class TccsController {
   public async show(ctx: HttpContextContract) {
     const tccId = ctx.request.param('id')
     const tcc = Tcc.find(tccId)
-    const student = await Tcc.query().where("id", tccId).preload('students')
-    const professor = await Tcc.query().where("id", tccId).preload('professor')
-    
+    const student = await Tcc.query().where('id', tccId).preload('students')
+    const professor = await Tcc.query().where('id', tccId).preload('professor')
+
     if (student !== null) {
       return { error: 'Estudante não encontrado' }
     }
-    
+
     return {
       tcc: tcc,
       student: student,
-      professor: professor
+      professor: professor,
     }
   }
 
@@ -170,26 +165,16 @@ export default class TccsController {
       accepted: false,
     }
 
-    console.log("Entrou no controller")
-    console.log(tccJson)
-    console.log(authors)
-    console.log(researchAreaId)
-    console.log(professorName)
-
-
     let allStudents = await Student.query().preload('user')
     var studentsDict = {}
-    for(var i = 0; i < allStudents.length; i++){
+    for (var i = 0; i < allStudents.length; i++) {
       studentsDict[allStudents[i].user.name] = allStudents[i].id
     }
-    authors = authors.split(',').map( (el) => el.trim() )
-    console.log(authors)
-    const authorsIds = authors.map( (author) => studentsDict[author]).filter( (el) => el != null)
-    console.log(studentsDict)
-    console.log(authorsIds)
+    authors = authors.split(',').map((el) => el.trim())
+    const authorsIds = authors.map((author) => studentsDict[author]).filter((el) => el != null)
 
-    if(authorsIds.length === 0){
-      return ctx.response.status(403).send({error: 'Autores Inválidos'})
+    if (authorsIds.length === 0) {
+      return ctx.response.status(403).send({ error: 'Autores Inválidos' })
     }
 
     //compare auth email with authors student email to check if user is correct
@@ -209,16 +194,14 @@ export default class TccsController {
       return ctx.response.status(401).send({ error: 'Autor não foi encontrado' })
     }
     const tcc = await Tcc.create(tccJson)
-    if(tcc === null){
-      return ctx.response.status(401).send({error: 'Tcc não foi criado'})
+    if (tcc === null) {
+      return ctx.response.status(401).send({ error: 'Tcc não foi criado' })
     }
     await tcc.related('professor').associate(professor)
     await tcc.related('students').saveMany(students)
-    await students.forEach(async (student) => await student.related('tcc').associate(tcc)) 
-    await tcc.related('researchArea').associate(researchArea)
 
-    console.log(tcc.id, tcc.title)
-    console.log(students.length)
+    students.forEach(async (student) => await student.related('tcc').associate(tcc))
+    await tcc.related('researchArea').associate(researchArea)
 
     return ctx.response.status(200).send({
       tcc: tcc,
