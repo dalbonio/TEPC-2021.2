@@ -11,6 +11,7 @@ async function detailTcc() {
   })
 
   const responseData = await res.json()
+  console.log(responseData)
   document.getElementById('field').innerText = responseData.research_area
   document.getElementById('title').innerHTML = `<strong>${responseData.title}</strong>`
   document.getElementById('authors').innerHTML = `<strong>${responseData.author}</strong> Sob orientação de ${responseData.professor}`
