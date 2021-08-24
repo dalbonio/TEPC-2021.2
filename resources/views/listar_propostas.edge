@@ -23,9 +23,11 @@
                     <span class="text">Criado por {{proposal.professor.name}}</span>
                 </div>
                 <p class="paragraph2">{{proposal.description}}</p>
-                <div class="action">
-                    <button class="text">Manifestar Interesse</button>
-                </div>
+                @if(auth.user.role === 'student')
+                    <div class="action">
+                        <button class="text">Manifestar Interesse</button>
+                    </div>
+                @endif
             </div>
             @end
 
