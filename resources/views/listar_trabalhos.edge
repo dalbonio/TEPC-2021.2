@@ -26,6 +26,9 @@
     <body>
         @include('header')
         <section class="main elevated1">
+            @if (auth.user.role === 'coordinator')
+                <h1 id="viewPending" hidden>Sim</h1>
+            @endif
             <h1>Trabalhos enviados</h1>
             <p class="paragraph1 low-emph">
                 Listagem de todos os trabalhos enviados por discentes do Curso de Ciência da Computação. Aplique os filtros desejados para refinar sua busca
