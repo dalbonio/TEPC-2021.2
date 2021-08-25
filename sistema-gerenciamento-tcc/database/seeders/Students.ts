@@ -3,6 +3,8 @@ import Student from 'App/Models/Student'
 import User from 'App/Models/User'
 
 export default class ProfessorSeeder extends BaseSeeder {
+  public static developmentOnly = true
+
   public async run() {
     const users = await User.createMany([
       {

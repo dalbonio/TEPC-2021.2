@@ -3,17 +3,17 @@ import Coordinator from 'App/Models/Coordinator'
 import User from 'App/Models/User'
 
 export default class CoordinatorSeeder extends BaseSeeder {
-  public static developmentOnly = true
-
   public async run() {
-    // Write your database queries inside the run method
-    const user = await User.create({
-      name: 'Coordenador Teste',
-      email: 'coordenador@email.com',
-      password: 'senha',
-    })
+    const user = await User.updateOrCreate(
+      { email: 'dcc@gmail.com.br' },
+      {
+        name: 'Coordenador do DCC',
+        email: 'dcc@gmail.com.br',
+        password: 'dcc123',
+      }
+    )
     //professors doesnt need any parameter in creation
-    const coordinator = await Coordinator.create({ userId: user.id })
+    const coordinator = await Coordinator.updateOrCreate({ userId: user.id }, { userId: user.id })
 
     coordinator.related('user').associate(user)
   }
