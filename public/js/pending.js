@@ -5,7 +5,7 @@ async function reject() {
     .split('=')[1]
 
   const res = await fetch(`/api/deleteTcc/${id}`, {
-    method: 'PUT',
+    method: 'DELETE',
     headers: new Headers({
       Authorization: `Bearer ${tk}`,
     }),
