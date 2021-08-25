@@ -218,7 +218,7 @@ export default class TccsController {
       return response.unauthorized()
     }
 
-    const id = request.param('id', 1)
+    const id = request.param('id')
     const tcc = await Tcc.findOrFail(id)
     await tcc.delete()
 
@@ -230,7 +230,7 @@ export default class TccsController {
       return response.unauthorized()
     }
 
-    const id = request.param('id', 1)
+    const id = request.param('id')
     const tcc = await Tcc.findOrFail(id)
     tcc.accepted = true
     await tcc.save()
