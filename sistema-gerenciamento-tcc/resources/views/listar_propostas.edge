@@ -6,6 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sistema de Gerenciamento de TCC - Propostas</title>
         @include('links')
+        @if(auth.user.role === 'student')
+        <script>
+            function editProposal(id) {
+                
+            }
+        </script>
+        @endif
     </head>
     <body>
         @include('header')
@@ -27,21 +34,13 @@
                     <div class="action">
                         <button class="text">Manifestar Interesse</button>
                     </div>
+                @elseif(auth.user.role === 'professor' && auth.user.id === proposal.professor.user_id)
+                <div class="action">
+                    <a class="text" href="/alterarProposta?p={{proposal.id}}">Alterar Proposta</a>
+                </div>
                 @endif
             </div>
-            @end
-
-            <div class="pagination">
-                <a href="#" class="unavailable"><span class="material-icons">first_page</span></a>
-                <a href="#" class="unavailable"><span class="material-icons">navigate_before</span></a>
-                <a href="#" class="selected">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#"><span class="material-icons">navigate_next</span></a>
-                <a href="#"><span class="material-icons">last_page</span></a>
-            </div>
+            @endeach
         </section>
     </body>
 </html>

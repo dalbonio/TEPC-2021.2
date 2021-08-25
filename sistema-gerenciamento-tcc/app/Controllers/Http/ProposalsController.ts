@@ -67,7 +67,7 @@ export default class ProposalsController {
 
     const proposal = await Proposal.create(proposalJson)
     if (proposal === null) {
-      return ctx.response.status(401).send({ error: 'Tcc não foi criado' })
+      return ctx.response.status(401).send({ error: 'Proposta não foi criada' })
     }
 
     await proposal.related('professor').associate(professor)
@@ -80,6 +80,50 @@ export default class ProposalsController {
       researchArea: researchArea,
       professor: professor,
     })*/
+  }
+
+  public async update(ctx: HttpContextContract) {
+    if (ctx.auth.user?.role !== 'professor') {
+      return ctx.response.unauthorized({ error: 'Apenas professores podem alterar propostas' })
+    }
+
+    const professorName = ctx.request.input('professor')
+    const researchAreaId = ctx.request.input('research_area')
+    const proposalJson = {
+      id: ctx.request.input('id'),
+      title: ctx.request.input('title'),
+      description: ctx.request.input('descricao'),
+    }
+
+    //compare auth email with authors student email to check if user is correct
+    const professorUser = await User.query().where('name', 'LIKE', '%' + professorName + '%')
+    if (professorUser.length === 0) {
+      return ctx.response.status(400).send({ error: 'Professor não foi encontrado' })
+    }
+
+    const researchArea = await ResearchArea.find(researchAreaId)
+    if (researchArea === null) {
+      return ctx.response.status(400).send({ error: 'Area de pesquisa não foi encontrada' })
+    }
+
+    //check if professor exists
+    const professor = await Professor.findBy('user_id', professorUser[0].id)
+    if (professor === null) {
+      return ctx.response.status(400).send({ error: 'Professor não foi encontrado' })
+    }
+
+    const proposal = await Proposal.find(proposalJson.id)
+    if (proposal === null) {
+      return ctx.response.status(400).send({ error: 'Proposta não foi criado' })
+    }
+    proposal.title = proposalJson.title
+    proposal.description = proposalJson.description
+    await proposal.save()
+
+    await proposal.related('professor').associate(professor)
+    await proposal.related('researchArea').associate(researchArea)
+
+    return ctx.response.redirect('/listarPropostas')
   }
 
   public async destroy(ctx: HttpContextContract) {
