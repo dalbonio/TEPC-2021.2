@@ -37,6 +37,7 @@
     "@adonisjs/session": "^6.1.0",
     "@adonisjs/shield": "^7.0.4",
     "@adonisjs/view": "^6.0.6",
+    "lorem-ipsum": "^2.0.3",
     "luxon": "^2.0.1",
     "pg": "^8.6.0",
     "phc-argon2": "^1.1.2",
