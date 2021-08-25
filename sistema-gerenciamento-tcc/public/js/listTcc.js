@@ -29,6 +29,9 @@ async function loadTccs() {
 
 async function setupList(tccList) {
   const listElement = document.getElementsByTagName('ul')[0]
+
+  document.getElementById('no-data').hidden = tccList.length > 0
+
   tccList.forEach((tcc) => {
     const li = makeTccListItem(tcc.research_area, tcc.title, tcc.author, tcc.professor, tcc.id)
     listElement.appendChild(li)

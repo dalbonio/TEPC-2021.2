@@ -6,22 +6,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sistema de Gerenciamento de TCC - Propostas</title>
         @include('links')
-        @if(auth.user.role === 'student')
         <script>
-            function editProposal(id) {
-                
+            function manifestInterest(name) {
+                alert(`Entre em contato com o professor responsável\nProfessor: ${name}`)
             }
         </script>
-        @endif
     </head>
     <body>
         @include('header')
         <section class="main elevated1">
             <h1>Propostas Registradas</h1>
             <p class="paragraph1 low-emph" style="margin-bottom: 32px;">
-                Listagem das propostas de Trabalhos de Conclusão de Curso submetidas pelos professores do Curso de Ciência da Computação, caso tenha intersse em alguma proposta indique seu interesse ao professor responsável.
+                Listagem das propostas de Trabalhos de Conclusão de Curso submetidas pelos professores do Curso de Ciência da Computação, caso tenha interesse em alguma proposta indique seu interesse ao professor responsável.
             </p>
 
+            @if(proposals.length === 0)
+                <div id="no-data" class="alert alert-primary" role="alert"> Nenhuma proposta encontrada </div>
+            @endif
             @each(proposal in proposals)
             <div class="card">
                 <div class="description">
@@ -32,12 +33,12 @@
                 <p class="paragraph2">{{proposal.description}}</p>
                 @if(auth.user.role === 'student')
                     <div class="action">
-                        <button class="text">Manifestar Interesse</button>
+                        <button class="text" onclick="manifestInterest('{{proposal.professor.name}}')">Manifestar Interesse</button>
                     </div>
                 @elseif(auth.user.role === 'professor' && auth.user.id === proposal.professor.user_id)
-                <div class="action">
-                    <a class="text" href="/alterarProposta?p={{proposal.id}}">Alterar Proposta</a>
-                </div>
+                    <div class="action">
+                        <a class="text" href="/alterarProposta?p={{proposal.id}}">Alterar Proposta</a>
+                    </div>
                 @endif
             </div>
             @endeach
