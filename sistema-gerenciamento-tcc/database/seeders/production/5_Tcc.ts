@@ -13,7 +13,8 @@ export default class TccSeeder extends BaseSeeder {
     const professors = await Professor.all()
     const researchAreas = await ResearchArea.all()
 
-    students.forEach((student, i) => {
+    for (const i in students) {
+      const student = students[i]
       const professor = professors[Math.floor(Math.random() * professors.length)]
       const researchArea = researchAreas[Math.floor(Math.random() * researchAreas.length)]
 
@@ -26,13 +27,12 @@ export default class TccSeeder extends BaseSeeder {
         researchAreaId: researchArea.id,
         accepted: Math.random() < 0.33,
       }
-      
       const tcc = await Tcc.create(tccJson)
       await tcc.related('professor').associate(professor)
       await tcc.related('students').saveMany([student])
 
-      students.forEach(async (student) => await student.related('tcc').associate(tcc))
+      await student.related('tcc').associate(tcc)
       await tcc.related('researchArea').associate(researchArea)
     }
-  })
+  }
 }

@@ -86,6 +86,8 @@ export default class StudentSeeder extends BaseSeeder {
       })
     )
 
-    students.forEach((student, index) => student.related('user').associate(users[index]))
+    for (const index in students) {
+      await students[index].related('user').associate(users[index])
+    }
   }
 }

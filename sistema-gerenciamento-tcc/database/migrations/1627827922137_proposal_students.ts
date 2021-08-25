@@ -14,7 +14,7 @@ export default class Proposals extends BaseSchema {
         .onDelete('CASCADE')
       table.string('title')
       table.integer('research_area_id').unsigned().references('id').inTable('research_areas')
-      table.string('description')
+      table.text('description')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
