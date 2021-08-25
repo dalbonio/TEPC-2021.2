@@ -85,7 +85,7 @@ export default class TccsController {
       resumo: ctx.request.input('resumo'),
       abstract: ctx.request.input('abstract'),
       filename: ctx.request.input('filename'),
-      file_content: await readFile(file.tmpPath!, { flag: 'rb' }),
+      file_content: await readFile(file.tmpPath!),
       researchAreaId: 0,
       accepted: false,
     }

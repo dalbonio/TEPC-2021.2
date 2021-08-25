@@ -27,7 +27,7 @@ export default class Tcc extends BaseModel {
   public filename: string
 
   @column()
-  public file_content: ArrayBuffer
+  public file_content: Buffer
 
   @hasMany(() => Student)
   public students: HasMany<typeof Student>
