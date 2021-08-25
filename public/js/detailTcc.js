@@ -17,9 +17,17 @@ async function detailTcc() {
   document.getElementById('authors').innerHTML = `<strong>${responseData.author}</strong> Sob orientação de ${responseData.professor}`
   document.getElementById('resumo').innerText = responseData.resumo
   document.getElementById('abstract').innerText = responseData.abstract
-  document.getElementById('download').addEventListener('click', async () => {
-    saveData(`/api/downloadTcc/${id}`, responseData.fileName)
-  })
+  const downloadButton = document.getElementById('download')
+  if (downloadButton) {
+    downloadButton.addEventListener('click', async () => {
+      saveData(`/api/downloadTcc/${id}`, responseData.fileName)
+    })
+  } else {
+    const download = document.getElementById('download-link')
+    download.download = responseData.filename
+    download.href = `/api/downloadTcc/${id}`
+    document.getElementById('filename').innerText = responseData.filename
+  }
 }
 
 function saveData(url, fileName) {
