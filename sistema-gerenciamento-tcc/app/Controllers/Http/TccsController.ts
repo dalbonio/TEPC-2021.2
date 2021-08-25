@@ -85,7 +85,7 @@ export default class TccsController {
       resumo: ctx.request.input('resumo'),
       abstract: ctx.request.input('abstract'),
       filename: ctx.request.input('filename'),
-      file_content: (await readFile(file.tmpPath!)).buffer,
+      file_content: await readFile(file.tmpPath!, { flag: 'rb' }),
       researchAreaId: 0,
       accepted: false,
     }
@@ -220,6 +220,10 @@ export default class TccsController {
 
     const id = request.param('id')
     const tcc = await Tcc.findOrFail(id)
+    const std = await Student.findBy('tcc_id', id)
+    if (std !== null) {
+      await std.related('tcc').dissociate()
+    }
     await tcc.delete()
 
     return response.ok('Rejeitado')
