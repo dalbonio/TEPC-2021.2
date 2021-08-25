@@ -9,56 +9,44 @@
     </head>
     <body>
         @include('header')
-        <dialog class="elevated2">
-            <h2>Título do Dialog</h2>
-            <p class="paragraph1 low-emph">
-                Texto do Dialog com cada vez mais palavras escritas para tentar forçar uma quebra de linha. Espero que isto seja o suficiente.
-            </p>
-            <button onclick="closeDialog()" class="raised">Positivo</button>
-            <button onclick="closeDialog()" class="text">Negativo</button>
-        </dialog>
-
         <section class="main elevated1">
-            <h1>Cadastrar Proposta de Trabalho</h1>
-            <p class="paragraph1 low-emph">
-                Preencha todos os campos obrigatórios e clique "Enviar".
-            </p>
+            <form action={{route('/api/editProposal')}} method="POST">
+                <h1>Cadastrar Proposta de Trabalho</h1>
+                <p class="paragraph1 low-emph">
+                    Preencha todos os campos obrigatórios e clique "Enviar".
+                </p>
 
-            <hr>
-            <fieldset>
-                <label for="input">Título</label>
-                <input type="text" name="input" id="input" placeholder="Insira o título">
-            </fieldset>
-
-            <fieldset>
-                <label for="select">Área de Pesquisa</label>
-                <select name="select" id="select" placeholder="Selecione a área de pesquisa">
-                    <option value="1">Engenharia de Software</option>
-                    <option value="2">Grafos e Combinatória</option>
-                    <option value="3">Inteligência Artificial</option>
-                </select>
-            </fieldset>
-
-            <fieldset>
-                <label for="area">Descrição</label>
-                <textarea name="area" id="area" placeholder="Insira aqui a descrição"></textarea>
-            </fieldset>
-
-            <div class="enviarForm">
-                <button class="raised">Enviar</button>
-            </div>
+                <hr>
+                <fieldset>
+                    <label for="input">Título</label>
+                    <input type="textarea" name="title" id="input" placeholder="Insira o título" value="{{proposal.title}}">
+                </fieldset>
+                
+                <fieldset>
+                    <label for="research_area">Área de Pesquisa</label>
+                    <select name="research_area" id="research_area" placeholder="Selecione a área de pesquisa">
+                        @each(item in researchAreas)
+                            @if(item.id === proposal.research_area_id)
+                                <option value={{item.id}} selected>{{item.name}}</option>
+                            @else
+                                <option value={{item.id}}>{{item.name}}</option>
+                            @endif
+                        @endeach
+                    </select>
+                </fieldset>
+    
+                <input type="hidden" id="id" name="id" value="{{proposal.id}}">
+                <input type="hidden" id="professor" name="professor" value="{{auth.user.name}}">
+    
+                <fieldset>
+                    <label for="area">Descrição</label>
+                    <input type="textarea" name="descricao" id="area" placeholder="Insira aqui a descrição" value="{{proposal.description}}">
+                </fieldset>
+    
+                <div class="enviarForm">
+                    <button type="submit" class="raised">Enviar</button>
+                </div>
+            </form>
         </section>
-
-        <script>
-            function openDialog() {
-                let dialog = document.querySelector('dialog');
-                dialog.showModal();
-            }
-
-            function closeDialog() {
-                let dialog = document.querySelector('dialog');
-                dialog.close();
-            }
-        </script>
     </body>
 </html>

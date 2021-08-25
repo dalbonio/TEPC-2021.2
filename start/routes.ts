@@ -56,12 +56,27 @@ Route.get('/cadastrarProposta', async ({ auth, view, response }) => {
   return view.render('cadastrar_proposta', { researchAreas: researchAreas })
 }).middleware(['webAuth', 'auth', 'userRole'])
 
-Route.post('/cadastrarProposta', async ({ auth, view, response }) => {
+Route.get('/alterarProposta', async ({ auth, request, view, response }) => {
   if (auth.user?.role !== 'professor') {
-    return response.unauthorized()
+    return response.unauthorized({ error: 'Apenas professores podem alterar propostas' })
   }
   let researchAreas = (await ResearchArea.all()).map((ra) => ra.serialize())
-  return view.render('cadastrar_proposta', { researchAreas: researchAreas })
+
+  const proposal = await Proposal.query()
+    .where('id', request.input('p'))
+    .preload('professor')
+    .first()
+
+  if (!proposal) {
+    return response.notFound()
+  }
+  const prop = proposal.serialize()
+
+  console.log(prop)
+  if (prop.professor.user_id !== auth.user.id) {
+    return response.unauthorized({ error: 'Apenas o professor proponente pode alterar a proposta' })
+  }
+  return view.render('alterar_proposta', { researchAreas: researchAreas, proposal: prop })
 }).middleware(['webAuth', 'auth', 'userRole'])
 
 Route.get('/rejeitarSubmissao', async ({ auth, view, response }) => {
@@ -129,6 +144,7 @@ Route.post('/api/logout', async ({ auth }) => {
 Route.post('/api/createStudent', 'StudentsController.create')
 
 Route.post('/api/createProposal', 'ProposalsController.create').middleware(['webAuth', 'auth', 'userRole'])
+Route.post('/api/editProposal', 'ProposalsController.update').middleware(['webAuth', 'auth', 'userRole'])
 Route.delete('/api/deleteTcc/:id', 'TccsController.destroy').middleware(['auth', 'userRole'])
 Route.put('/api/approveTcc/:id', 'TccsController.approve').middleware(['auth', 'userRole'])
 
